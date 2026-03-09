@@ -849,7 +849,308 @@ td.computed-zero { color: var(--muted) !important; }
 
       <!-- SITUATION TRAVAUX -->
       <div>
+        
+      </div>
+
+      <!-- RECAPITULATIF PAIEMENTS -->
+      <div>
         <div class="section-head">
+          <div class="section-title">Récapitulatif des paiements <span class="section-tag">Décompte N°07</span></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Éléments positifs / négatifs — Acompte du mois</div>
+            <div style="font-size:10px;color:var(--muted);font-family:var(--font-mono)">Base cumul M−1 → cumul M</div>
+          </div>
+          <div style="padding:0 16px">
+            <table class="montant-table">
+              <tr>
+                <td class="sub">Avance démarrage (encaissée)</td>
+                <td class="sub">1 090 877 967 XAF</td>
+              </tr>
+              <tr>
+                <td>+ Prestations HT cumulées M</td>
+                <td>1 087 581 167 XAF</td>
+              </tr>
+              <tr>
+                <td>= Sous-total positif cumulé</td>
+                <td>2 178 459 135 XAF</td>
+              </tr>
+              <tr>
+                <td class="sub">Remboursement avance</td>
+                <td class="deduct">0 XAF</td>
+              </tr>
+              <tr>
+                <td class="sub">Retenue de garantie (5%)</td>
+                <td class="deduct">—</td>
+              </tr>
+              <tr>
+                <td class="sub">Pénalité de retard</td>
+                <td class="deduct">—</td>
+              </tr>
+              <tr>
+                <td>Montant TTC (TVA 19,25%)</td>
+                <td>94 903 097 XAF</td>
+              </tr>
+              <tr>
+                <td>− AIR (1,1% part Euros + CFA)</td>
+                <td class="deduct">− 875 416 XAF</td>
+              </tr>
+              <tr class="total-row">
+                <td>NET ACOMPTE DU MOIS</td>
+                <td>94 027 681 XAF</td>
+              </tr>
+            </table>
+          </div>
+          <!-- Devise split -->
+          <div style="padding:12px 16px 16px">
+            <div style="font-size:10px;color:var(--muted);font-family:var(--font-mono);margin-bottom:6px">RÉPARTITION MULTI-DEVISES (53% EUR · 47% XAF)</div>
+            <div class="devise-split">
+              <div class="devise-box eur">
+                <div class="devise-label">Part Euro (53%)</div>
+                <div class="devise-val" id="kpi-eur">64 301,71 €</div>
+                <div class="devise-sub">Net à mandater SOCIETE GENERALE<br>Compte: FR76 3000 3001 9000 0200 9438 332</div>
+              </div>
+              <div class="devise-box xaf">
+                <div class="devise-label">Part F CFA (47%)</div>
+                <div class="devise-val" id="kpi-cfa">36 528 740 ₣</div>
+                <div class="devise-sub">Net à mandater SGBC Yaoundé<br>IBAN: CM21 1000 3002 0005 0205 4213 989</div>
+              </div>
+            </div>
+            <div style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div style="border:1px solid var(--border);border-radius:5px;padding:8px 10px;background:var(--bg)">
+                <div style="font-size:9px;font-family:var(--font-mono);color:var(--muted);text-transform:uppercase">Part TVA → Trésor Public</div>
+                <div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--ink);margin-top:3px" id="kpi-tva-tresor">15 319 787 ₣</div>
+              </div>
+              <div style="border:1px solid var(--border);border-radius:5px;padding:8px 10px;background:var(--bg)">
+                <div style="font-size:9px;font-family:var(--font-mono);color:var(--muted);text-transform:uppercase">Part AIR → Trésor Public</div>
+                <div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--ink);margin-top:3px" id="kpi-air-tresor">875 416 ₣</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIGNATURES -->
+      <div>
+        <div class="section-head">
+          <div class="section-title">Circuit de signatures <span class="section-tag">4 visas requis</span></div>
+        </div>
+        <div class="sig-grid">
+          <div class="sig-box">
+            <div class="sig-role">Dressé par l'entreprise</div>
+            <div class="sig-name">MATIERE S.A.S</div>
+            <div class="sig-status sig-done">✓ Signé — 15 oct. 2015</div>
+          </div>
+          <div class="sig-box">
+            <div class="sig-role">L'Ingénieur du Marché</div>
+            <div class="sig-name">Délégué Rég. TP</div>
+            <div class="sig-status sig-done">✓ Signé — 18 oct. 2015</div>
+          </div>
+          <div class="sig-box">
+            <div class="sig-role">Chef de service du marché (DIR)</div>
+            <div class="sig-name">MINTP / Douala</div>
+            <div class="sig-status sig-pending">⏳ En attente</div>
+          </div>
+          <div class="sig-box" style="border-color:var(--accent);background:var(--accent-light)">
+            <div class="sig-role" style="color:var(--accent)">Directeur de Projet</div>
+            <div class="sig-name">Jean KAMGA</div>
+            <div class="sig-status sig-pending" style="color:var(--accent)">→ Votre validation requise</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /left-panel -->
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+
+      <!-- DÉCISION 60s -->
+      <div class="decision-card review">
+        <div class="decision-top">
+          <div class="decision-icon">⚠</div>
+          <div>
+            <div class="decision-label">REVIEW</div>
+            <div class="decision-sub">1 arbitrage à lever avant GO</div>
+          </div>
+        </div>
+        <div class="check-row">
+          <div class="check-ico ok">✓</div>
+          <div class="check-lbl">Calculs déterministes</div>
+          <div class="check-val ok">Vérifiés</div>
+        </div>
+        <div class="check-row">
+          <div class="check-ico ok">✓</div>
+          <div class="check-lbl">Avance démarrage soldée</div>
+          <div class="check-val ok">A10 ≈ 0 ₣</div>
+        </div>
+        <div class="check-row">
+          <div class="check-ico warn">⚠</div>
+          <div class="check-lbl">Arbitrage béton armé (105.00)</div>
+          <div class="check-val warn">12,87 m³</div>
+        </div>
+        <div class="check-row">
+          <div class="check-ico ok">✓</div>
+          <div class="check-lbl">Multi-devises (53/47%)</div>
+          <div class="check-val ok">Taux verrouillé</div>
+        </div>
+        <div class="check-row">
+          <div class="check-ico ok">✓</div>
+          <div class="check-lbl">TVA 19,25% + AIR 1,1%</div>
+          <div class="check-val ok">Cohérent</div>
+        </div>
+        <div class="check-row">
+          <div class="check-ico ok">✓</div>
+          <div class="check-lbl">Matching DQE↔BPU</div>
+          <div class="check-val ok">97%</div>
+        </div>
+        <div class="check-row" style="border-bottom:none">
+          <div class="check-ico alert">○</div>
+          <div class="check-lbl">Signature DIR manquante</div>
+          <div class="check-val alert">En attente</div>
+        </div>
+      </div>
+
+
+      <!-- ── BPU PANEL ── -->
+      <div id="bpu-panel">
+        <div style="font-size:9px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.6px;margin-bottom:6px">Extrait BPU</div>
+        <div class="rp-bpu">
+          <div class="bpu-placeholder">
+            <span class="ph-icon">📋</span>
+            Cliquer une ligne<br>de la DQE pour afficher<br>l'extrait BPU correspondant
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI MINI -->
+      <div>
+        <div style="font-size:10px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:0.5px;margin-bottom:8px">Avancement projet</div>
+        <div class="kpi-row">
+          <div class="kpi-mini">
+            <div class="kpi-mini-label">Prestations cumulées</div>
+            <div class="kpi-mini-val" style="font-size:13px">1 087 M ₣</div>
+            <div class="kpi-mini-sub">sur 5 454 M ₣ marché</div>
+          </div>
+          <div class="kpi-mini">
+            <div class="kpi-mini-label">Avancement</div>
+            <div class="kpi-mini-val" style="color:var(--accent)">20,5%</div>
+            <div class="kpi-mini-sub">oct. 2015 · 30 mois</div>
+          </div>
+        </div>
+        <div class="avance-bar-wrap" style="margin-top:8px">
+          <div class="avance-bar-label"><span>0%</span><span style="color:var(--accent)">20,5% cumulé</span><span>100%</span></div>
+          <div class="avance-bar"><div class="avance-fill" style="width:20.5%"></div></div>
+        </div>
+      </div>
+
+      <!-- MONTANTS DU MOIS -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Montants mois (acompte)</div>
+          <div style="font-size:10px;color:var(--muted);font-family:var(--font-mono)">Décompte N°7</div>
+        </div>
+        <div style="padding:12px">
+          <div class="mandater-block">
+            <div class="mandater-row">
+              <div class="m-lbl">Prestations HT mois</div>
+              <div class="m-val"><span id="kpi-ht-mois">79 583 310</span><span class="m-currency">₣</span></div>
+            </div>
+            <div class="mandater-row">
+              <div class="m-lbl">TVA (19,25%)</div>
+              <div class="m-val"><span id="kpi-tva">15 319 787</span><span class="m-currency">₣</span></div>
+            </div>
+            <div class="mandater-row">
+              <div class="m-lbl">AIR (1,1%)</div>
+              <div class="m-val" style="color:var(--red)"><span id="kpi-air">875 416</span><span class="m-currency">₣</span></div>
+            </div>
+            <div class="mandater-row">
+              <div class="m-lbl">TTC brut</div>
+              <div class="m-val"><span id="kpi-ttc">94 903 097</span><span class="m-currency">₣</span></div>
+            </div>
+            <div class="mandater-row total">
+              <div class="m-lbl">NET À MANDATER</div>
+              <div class="m-val"><span id="kpi-net">94 027 681</span> ₣</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;font-size:10px;color:var(--muted);font-family:var(--font-mono);line-height:1.5">
+            Part Euros: 64 301,71 € → SOCIETE GENERALE<br>
+            Part CFA: 36 528 740 ₣ → SGBC Yaoundé<br>
+            Imputation: AFD
+          </div>
+        </div>
+      </div>
+
+      <!-- AVANCE DÉMARRAGE -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Suivi avance démarrage</div>
+          <div style="font-size:10px;font-family:var(--font-mono);color:var(--green)">✓ Soldée</div>
+        </div>
+        <div style="padding:12px">
+          <div class="mandater-row" style="padding-left:0;padding-right:0;border-bottom:1px solid var(--border)">
+            <div class="m-lbl">Avance accordée (A3 — 20%)</div>
+            <div class="m-val">1 090 877 967<span class="m-currency">XAF</span></div>
+          </div>
+          <div class="mandater-row" style="padding-left:0;padding-right:0;border-bottom:1px solid var(--border)">
+            <div class="m-lbl">Remboursements cumulés (A9)</div>
+            <div class="m-val">1 090 877 967<span class="m-currency">XAF</span></div>
+          </div>
+          <div class="mandater-row" style="padding-left:0;padding-right:0;border-bottom:none">
+            <div class="m-lbl" style="font-weight:600">Reste à rembourser (A10)</div>
+            <div class="m-val" style="color:var(--green);font-weight:600">≈ 0 ₣</div>
+          </div>
+          <div class="avance-bar-wrap">
+            <div class="avance-bar-label"><span>Remboursé</span><span style="color:var(--green)">100%</span></div>
+            <div class="avance-bar"><div class="avance-fill" style="width:100%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AUDIT TRAIL -->
+      <div>
+        <div style="font-size:10px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:0.5px;margin-bottom:8px">Audit trail récent</div>
+        <div class="tl-item">
+          <div class="tl-dot green"></div>
+          <div>
+            <div class="tl-text">Vérification validée — IQ Paul MBONGO</div>
+            <div class="tl-meta">12 oct. 2015 · 14:22</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot orange"></div>
+          <div>
+            <div class="tl-text">Arbitrage flag — ligne 105.00 béton armé (12,87 m³)</div>
+            <div class="tl-meta">12 oct. 2015 · 14:25 · Tag: REVIEW</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot blue"></div>
+          <div>
+            <div class="tl-text">Import DQE — 303 lignes · 97% matching BPU</div>
+            <div class="tl-meta">08 oct. 2015 · 09:11 · Jean KAMGA</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot green"></div>
+          <div>
+            <div class="tl-text">Taux de change verrouillé — 655,957 XAF/€</div>
+            <div class="tl-meta">07 oct. 2015 · 10:00 · Admin système</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /right-panel -->
+    </div>
+
+    <!-- ══ PAGE : DQE ══ -->
+    <div class="page" id="page-dqe" style="overflow:hidden;">
+      <div class="fp" style="padding:18px 22px;overflow:hidden;height:100%;display:flex;flex-direction:column;gap:14px;">
+        <div class="alert-banner warn">
+          <div class="ab-icon">⚠</div>
+          <div><strong>Ligne 105.00 :</strong> Démolition béton armé — quantité saisie 12,87 m³ — arbitrage en attente avant validation GO.</div>
+        </div>
+<div class="section-head">
           <div class="section-title">Situation de travaux — Familles <span class="section-tag">DQE · Part MATIERE</span></div>
           <div style="display:flex;gap:6px">
             <button class="btn btn-outline" style="font-size:11px;padding:5px 12px">Déplier tout</button>
@@ -858,7 +1159,7 @@ td.computed-zero { color: var(--muted) !important; }
         </div>
 
         <div class="card">
-          <div style="overflow:auto;max-height:calc(100vh - 280px);border-radius:8px;">
+          <div style="overflow:auto;flex:1;min-height:0;border-radius:8px;">
 <table class="sit-table">
             <thead>
               <tr>
@@ -4912,312 +5213,6 @@ td.computed-zero { color: var(--muted) !important; }
             </tbody>
           </table>
 </div><!-- /scroll -->
-        </div>
-      </div>
-
-      <!-- RECAPITULATIF PAIEMENTS -->
-      <div>
-        <div class="section-head">
-          <div class="section-title">Récapitulatif des paiements <span class="section-tag">Décompte N°07</span></div>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">Éléments positifs / négatifs — Acompte du mois</div>
-            <div style="font-size:10px;color:var(--muted);font-family:var(--font-mono)">Base cumul M−1 → cumul M</div>
-          </div>
-          <div style="padding:0 16px">
-            <table class="montant-table">
-              <tr>
-                <td class="sub">Avance démarrage (encaissée)</td>
-                <td class="sub">1 090 877 967 XAF</td>
-              </tr>
-              <tr>
-                <td>+ Prestations HT cumulées M</td>
-                <td>1 087 581 167 XAF</td>
-              </tr>
-              <tr>
-                <td>= Sous-total positif cumulé</td>
-                <td>2 178 459 135 XAF</td>
-              </tr>
-              <tr>
-                <td class="sub">Remboursement avance</td>
-                <td class="deduct">0 XAF</td>
-              </tr>
-              <tr>
-                <td class="sub">Retenue de garantie (5%)</td>
-                <td class="deduct">—</td>
-              </tr>
-              <tr>
-                <td class="sub">Pénalité de retard</td>
-                <td class="deduct">—</td>
-              </tr>
-              <tr>
-                <td>Montant TTC (TVA 19,25%)</td>
-                <td>94 903 097 XAF</td>
-              </tr>
-              <tr>
-                <td>− AIR (1,1% part Euros + CFA)</td>
-                <td class="deduct">− 875 416 XAF</td>
-              </tr>
-              <tr class="total-row">
-                <td>NET ACOMPTE DU MOIS</td>
-                <td>94 027 681 XAF</td>
-              </tr>
-            </table>
-          </div>
-          <!-- Devise split -->
-          <div style="padding:12px 16px 16px">
-            <div style="font-size:10px;color:var(--muted);font-family:var(--font-mono);margin-bottom:6px">RÉPARTITION MULTI-DEVISES (53% EUR · 47% XAF)</div>
-            <div class="devise-split">
-              <div class="devise-box eur">
-                <div class="devise-label">Part Euro (53%)</div>
-                <div class="devise-val" id="kpi-eur">64 301,71 €</div>
-                <div class="devise-sub">Net à mandater SOCIETE GENERALE<br>Compte: FR76 3000 3001 9000 0200 9438 332</div>
-              </div>
-              <div class="devise-box xaf">
-                <div class="devise-label">Part F CFA (47%)</div>
-                <div class="devise-val" id="kpi-cfa">36 528 740 ₣</div>
-                <div class="devise-sub">Net à mandater SGBC Yaoundé<br>IBAN: CM21 1000 3002 0005 0205 4213 989</div>
-              </div>
-            </div>
-            <div style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
-              <div style="border:1px solid var(--border);border-radius:5px;padding:8px 10px;background:var(--bg)">
-                <div style="font-size:9px;font-family:var(--font-mono);color:var(--muted);text-transform:uppercase">Part TVA → Trésor Public</div>
-                <div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--ink);margin-top:3px" id="kpi-tva-tresor">15 319 787 ₣</div>
-              </div>
-              <div style="border:1px solid var(--border);border-radius:5px;padding:8px 10px;background:var(--bg)">
-                <div style="font-size:9px;font-family:var(--font-mono);color:var(--muted);text-transform:uppercase">Part AIR → Trésor Public</div>
-                <div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--ink);margin-top:3px" id="kpi-air-tresor">875 416 ₣</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SIGNATURES -->
-      <div>
-        <div class="section-head">
-          <div class="section-title">Circuit de signatures <span class="section-tag">4 visas requis</span></div>
-        </div>
-        <div class="sig-grid">
-          <div class="sig-box">
-            <div class="sig-role">Dressé par l'entreprise</div>
-            <div class="sig-name">MATIERE S.A.S</div>
-            <div class="sig-status sig-done">✓ Signé — 15 oct. 2015</div>
-          </div>
-          <div class="sig-box">
-            <div class="sig-role">L'Ingénieur du Marché</div>
-            <div class="sig-name">Délégué Rég. TP</div>
-            <div class="sig-status sig-done">✓ Signé — 18 oct. 2015</div>
-          </div>
-          <div class="sig-box">
-            <div class="sig-role">Chef de service du marché (DIR)</div>
-            <div class="sig-name">MINTP / Douala</div>
-            <div class="sig-status sig-pending">⏳ En attente</div>
-          </div>
-          <div class="sig-box" style="border-color:var(--accent);background:var(--accent-light)">
-            <div class="sig-role" style="color:var(--accent)">Directeur de Projet</div>
-            <div class="sig-name">Jean KAMGA</div>
-            <div class="sig-status sig-pending" style="color:var(--accent)">→ Votre validation requise</div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /left-panel -->
-
-    <!-- RIGHT PANEL -->
-    <div class="right-panel">
-
-      <!-- DÉCISION 60s -->
-      <div class="decision-card review">
-        <div class="decision-top">
-          <div class="decision-icon">⚠</div>
-          <div>
-            <div class="decision-label">REVIEW</div>
-            <div class="decision-sub">1 arbitrage à lever avant GO</div>
-          </div>
-        </div>
-        <div class="check-row">
-          <div class="check-ico ok">✓</div>
-          <div class="check-lbl">Calculs déterministes</div>
-          <div class="check-val ok">Vérifiés</div>
-        </div>
-        <div class="check-row">
-          <div class="check-ico ok">✓</div>
-          <div class="check-lbl">Avance démarrage soldée</div>
-          <div class="check-val ok">A10 ≈ 0 ₣</div>
-        </div>
-        <div class="check-row">
-          <div class="check-ico warn">⚠</div>
-          <div class="check-lbl">Arbitrage béton armé (105.00)</div>
-          <div class="check-val warn">12,87 m³</div>
-        </div>
-        <div class="check-row">
-          <div class="check-ico ok">✓</div>
-          <div class="check-lbl">Multi-devises (53/47%)</div>
-          <div class="check-val ok">Taux verrouillé</div>
-        </div>
-        <div class="check-row">
-          <div class="check-ico ok">✓</div>
-          <div class="check-lbl">TVA 19,25% + AIR 1,1%</div>
-          <div class="check-val ok">Cohérent</div>
-        </div>
-        <div class="check-row">
-          <div class="check-ico ok">✓</div>
-          <div class="check-lbl">Matching DQE↔BPU</div>
-          <div class="check-val ok">97%</div>
-        </div>
-        <div class="check-row" style="border-bottom:none">
-          <div class="check-ico alert">○</div>
-          <div class="check-lbl">Signature DIR manquante</div>
-          <div class="check-val alert">En attente</div>
-        </div>
-      </div>
-
-
-      <!-- ── BPU PANEL ── -->
-      <div id="bpu-panel">
-        <div style="font-size:9px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.6px;margin-bottom:6px">Extrait BPU</div>
-        <div class="rp-bpu">
-          <div class="bpu-placeholder">
-            <span class="ph-icon">📋</span>
-            Cliquer une ligne<br>de la DQE pour afficher<br>l'extrait BPU correspondant
-          </div>
-        </div>
-      </div>
-
-      <!-- KPI MINI -->
-      <div>
-        <div style="font-size:10px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:0.5px;margin-bottom:8px">Avancement projet</div>
-        <div class="kpi-row">
-          <div class="kpi-mini">
-            <div class="kpi-mini-label">Prestations cumulées</div>
-            <div class="kpi-mini-val" style="font-size:13px">1 087 M ₣</div>
-            <div class="kpi-mini-sub">sur 5 454 M ₣ marché</div>
-          </div>
-          <div class="kpi-mini">
-            <div class="kpi-mini-label">Avancement</div>
-            <div class="kpi-mini-val" style="color:var(--accent)">20,5%</div>
-            <div class="kpi-mini-sub">oct. 2015 · 30 mois</div>
-          </div>
-        </div>
-        <div class="avance-bar-wrap" style="margin-top:8px">
-          <div class="avance-bar-label"><span>0%</span><span style="color:var(--accent)">20,5% cumulé</span><span>100%</span></div>
-          <div class="avance-bar"><div class="avance-fill" style="width:20.5%"></div></div>
-        </div>
-      </div>
-
-      <!-- MONTANTS DU MOIS -->
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Montants mois (acompte)</div>
-          <div style="font-size:10px;color:var(--muted);font-family:var(--font-mono)">Décompte N°7</div>
-        </div>
-        <div style="padding:12px">
-          <div class="mandater-block">
-            <div class="mandater-row">
-              <div class="m-lbl">Prestations HT mois</div>
-              <div class="m-val"><span id="kpi-ht-mois">79 583 310</span><span class="m-currency">₣</span></div>
-            </div>
-            <div class="mandater-row">
-              <div class="m-lbl">TVA (19,25%)</div>
-              <div class="m-val"><span id="kpi-tva">15 319 787</span><span class="m-currency">₣</span></div>
-            </div>
-            <div class="mandater-row">
-              <div class="m-lbl">AIR (1,1%)</div>
-              <div class="m-val" style="color:var(--red)"><span id="kpi-air">875 416</span><span class="m-currency">₣</span></div>
-            </div>
-            <div class="mandater-row">
-              <div class="m-lbl">TTC brut</div>
-              <div class="m-val"><span id="kpi-ttc">94 903 097</span><span class="m-currency">₣</span></div>
-            </div>
-            <div class="mandater-row total">
-              <div class="m-lbl">NET À MANDATER</div>
-              <div class="m-val"><span id="kpi-net">94 027 681</span> ₣</div>
-            </div>
-          </div>
-          <div style="margin-top:10px;font-size:10px;color:var(--muted);font-family:var(--font-mono);line-height:1.5">
-            Part Euros: 64 301,71 € → SOCIETE GENERALE<br>
-            Part CFA: 36 528 740 ₣ → SGBC Yaoundé<br>
-            Imputation: AFD
-          </div>
-        </div>
-      </div>
-
-      <!-- AVANCE DÉMARRAGE -->
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Suivi avance démarrage</div>
-          <div style="font-size:10px;font-family:var(--font-mono);color:var(--green)">✓ Soldée</div>
-        </div>
-        <div style="padding:12px">
-          <div class="mandater-row" style="padding-left:0;padding-right:0;border-bottom:1px solid var(--border)">
-            <div class="m-lbl">Avance accordée (A3 — 20%)</div>
-            <div class="m-val">1 090 877 967<span class="m-currency">XAF</span></div>
-          </div>
-          <div class="mandater-row" style="padding-left:0;padding-right:0;border-bottom:1px solid var(--border)">
-            <div class="m-lbl">Remboursements cumulés (A9)</div>
-            <div class="m-val">1 090 877 967<span class="m-currency">XAF</span></div>
-          </div>
-          <div class="mandater-row" style="padding-left:0;padding-right:0;border-bottom:none">
-            <div class="m-lbl" style="font-weight:600">Reste à rembourser (A10)</div>
-            <div class="m-val" style="color:var(--green);font-weight:600">≈ 0 ₣</div>
-          </div>
-          <div class="avance-bar-wrap">
-            <div class="avance-bar-label"><span>Remboursé</span><span style="color:var(--green)">100%</span></div>
-            <div class="avance-bar"><div class="avance-fill" style="width:100%"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- AUDIT TRAIL -->
-      <div>
-        <div style="font-size:10px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:0.5px;margin-bottom:8px">Audit trail récent</div>
-        <div class="tl-item">
-          <div class="tl-dot green"></div>
-          <div>
-            <div class="tl-text">Vérification validée — IQ Paul MBONGO</div>
-            <div class="tl-meta">12 oct. 2015 · 14:22</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot orange"></div>
-          <div>
-            <div class="tl-text">Arbitrage flag — ligne 105.00 béton armé (12,87 m³)</div>
-            <div class="tl-meta">12 oct. 2015 · 14:25 · Tag: REVIEW</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot blue"></div>
-          <div>
-            <div class="tl-text">Import DQE — 303 lignes · 97% matching BPU</div>
-            <div class="tl-meta">08 oct. 2015 · 09:11 · Jean KAMGA</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot green"></div>
-          <div>
-            <div class="tl-text">Taux de change verrouillé — 655,957 XAF/€</div>
-            <div class="tl-meta">07 oct. 2015 · 10:00 · Admin système</div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /right-panel -->
-    </div>
-
-    <!-- ══ PAGE : DQE ══ -->
-    <div class="page" id="page-dqe">
-      <div class="fp">
-        <div class="section-head">
-          <div class="section-title">DQE — Situation de travaux <span class="section-tag">Part MATIERE · 223 lignes · prix réels Excel N°7</span></div>
-        </div>
-        <div class="alert-banner warn">
-          <div class="ab-icon">⚠</div>
-          <div><strong>Ligne 105.00 :</strong> Démolition béton armé — quantité saisie 12,87 m³ — arbitrage en attente avant validation GO.</div>
-        </div>
-        <div class="card">
-          
         </div>
       </div>
     </div>
