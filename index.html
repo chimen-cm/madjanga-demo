@@ -1,0 +1,2299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Madjanga — Directeur de Projet · Décompte N°7</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+<style>
+
+
+:root {
+  --bg: #F5F3EE;
+  --surface: #FDFCF9;
+  --surface2: #EFEDE7;
+  --border: #DDD9CF;
+  --border2: #C8C3B5;
+  --ink: #1A1814;
+  --ink2: #4A4640;
+  --muted: #8C8880;
+  --accent: #C4530A;
+  --accent-light: rgba(196,83,10,0.08);
+  --accent-border: rgba(196,83,10,0.25);
+  --green: #1A7A4A;
+  --green-light: rgba(26,122,74,0.08);
+  --green-border: rgba(26,122,74,0.25);
+  --blue: #1A4A8C;
+  --blue-light: rgba(26,74,140,0.07);
+  --red: #A02020;
+  --red-light: rgba(160,32,32,0.08);
+  --gold: #8B6914;
+  --gold-light: rgba(139,105,20,0.08);
+  --font-display: 'Bricolage Grotesque', sans-serif;
+  --font-body: 'IBM Plex Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --r: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* ── LAYOUT ── */
+.shell {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 56px auto 1fr;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  grid-column: 1/-1;
+  background: var(--ink);
+  display: flex; align-items: center;
+  padding: 0 20px; gap: 16px;
+  border-bottom: 2px solid var(--accent);
+}
+.logo {
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 800;
+  color: #fff; letter-spacing: -0.5px;
+  display: flex; align-items: center; gap: 8px;
+}
+.logo-mark {
+  background: var(--accent);
+  color: #fff; font-size: 11px; font-weight: 800;
+  width: 22px; height: 22px; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+}
+.topbar-project {
+  margin-left: 8px;
+  border-left: 1px solid #444;
+  padding-left: 16px;
+  display: flex; flex-direction: column;
+}
+.tp-name { font-size: 12px; font-weight: 500; color: #fff; }
+.tp-ref { font-size: 10px; color: #888; font-family: var(--font-mono); }
+.topbar-sep { flex: 1; }
+.tb-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #ccc; padding: 6px 14px;
+  border-radius: 5px; font-size: 12px;
+  cursor: pointer; font-family: var(--font-body);
+  transition: all 0.15s;
+}
+.tb-btn:hover { background: rgba(255,255,255,0.14); color: #fff; }
+.tb-btn.danger { border-color: rgba(196,83,10,0.4); color: #e8886a; }
+.tb-btn.danger:hover { background: rgba(196,83,10,0.15); color: var(--accent); }
+.tb-chip {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(26,122,74,0.18);
+  border: 1px solid rgba(26,122,74,0.3);
+  border-radius: 20px; padding: 4px 12px;
+  font-size: 11px; color: #6edba0;
+  font-family: var(--font-mono);
+}
+.tb-dot { width: 6px; height: 6px; border-radius: 50%; background: #6edba0; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  grid-column: 1;
+  grid-row: 2 / 4;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 16px 0;
+  overflow-y: auto;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.nav-section {
+  font-size: 9px; font-family: var(--font-mono);
+  color: var(--muted); text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 14px 16px 5px;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 9px;
+  padding: 8px 16px;
+  font-size: 13px; font-weight: 400;
+  color: var(--ink2); cursor: pointer;
+  transition: all 0.1s;
+  border-left: 3px solid transparent;
+  position: relative;
+}
+.nav-item:hover { background: var(--surface2); color: var(--ink); }
+.nav-item.active {
+  background: var(--accent-light);
+  border-left-color: var(--accent);
+  color: var(--accent); font-weight: 500;
+}
+.nav-icon { font-size: 14px; width: 16px; text-align: center; }
+.nav-badge {
+  margin-left: auto; font-size: 10px;
+  background: var(--accent); color: #fff;
+  padding: 1px 6px; border-radius: 10px;
+}
+.nav-badge.warn { background: var(--gold); }
+
+/* ── MAIN ── */
+.dc-header {
+  grid-column: 2;
+  grid-row: 2;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 22px 10px;
+  flex-shrink: 0;
+}
+.content-zone {
+  grid-column: 2;
+  grid-row: 3;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ── DECOMPTE HEADER ── */
+.dc-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 28px 16px;
+}
+.dc-header-top {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 24px; margin-bottom: 16px;
+}
+.dc-title-block {}
+.dc-badge-row { display: flex; gap: 6px; margin-bottom: 6px; }
+.badge {
+  font-size: 10px; font-family: var(--font-mono);
+  padding: 2px 8px; border-radius: 4px;
+  border: 1px solid var(--border);
+  color: var(--ink2); background: var(--surface2);
+}
+.badge.orange { border-color: var(--accent-border); color: var(--accent); background: var(--accent-light); }
+.badge.blue { border-color: rgba(26,74,140,0.25); color: var(--blue); background: var(--blue-light); }
+.badge.green { border-color: var(--green-border); color: var(--green); background: var(--green-light); }
+.dc-title {
+  font-family: var(--font-display);
+  font-size: 20px; font-weight: 700; color: var(--ink);
+  line-height: 1.2;
+}
+.dc-subtitle { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+.dc-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: var(--r);
+  font-size: 12px; font-weight: 500;
+  cursor: pointer; transition: all 0.15s;
+  font-family: var(--font-body);
+  border: 1px solid transparent;
+}
+.btn-outline { background: var(--surface); border-color: var(--border); color: var(--ink2); }
+.btn-outline:hover { border-color: var(--border2); color: var(--ink); }
+.btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn-primary:hover { background: #a84508; }
+.btn-green { background: var(--green); color: #fff; border-color: var(--green); }
+.btn-green:hover { background: #145e38; }
+
+/* ── WORKFLOW BAR ── */
+.workflow-bar {
+  display: flex; align-items: flex-start;
+  gap: 0; padding: 12px 0 4px;
+}
+.wf-node { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+.wf-circle {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 2px solid var(--border2);
+  background: var(--surface2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: var(--muted);
+  position: relative; z-index: 1;
+}
+.wf-circle.done { border-color: var(--green); background: var(--green-light); color: var(--green); font-size: 13px; }
+.wf-circle.active { border-color: var(--accent); background: var(--accent-light); color: var(--accent); font-weight: 700; font-size: 11px; box-shadow: 0 0 0 4px rgba(196,83,10,0.1); }
+.wf-label { font-size: 10px; font-family: var(--font-mono); color: var(--muted); text-align: center; white-space: nowrap; }
+.wf-label.done { color: var(--green); }
+.wf-label.active { color: var(--accent); font-weight: 600; }
+.wf-connector { height: 2px; flex: 1; background: var(--border); margin-top: -19px; position: relative; z-index: 0; }
+.wf-connector.done { background: var(--green); }
+
+/* ── TABS ── */
+.tab-bar {
+  display: flex; gap: 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+}
+.tab {
+  padding: 11px 16px;
+  font-size: 12px; font-weight: 500;
+  color: var(--muted); cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.12s;
+  white-space: nowrap;
+}
+.tab:hover { color: var(--ink2); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab .tab-badge {
+  display: inline-block; margin-left: 5px;
+  background: var(--red); color: #fff;
+  font-size: 9px; font-family: var(--font-mono);
+  padding: 1px 5px; border-radius: 10px;
+}
+
+/* ── CONTENT AREA ── */
+.content {
+  display: grid;
+  grid-template-columns: 1fr 310px;
+  gap: 0;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ── LEFT PANEL ── */
+.left-panel { padding: 18px 22px; overflow-y: auto; height: 100%; display: flex; flex-direction: column; gap: 18px; border-right: 1px solid var(--border); }
+
+/* SECTION HEADERS */
+.section-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 13px; font-weight: 700; color: var(--ink);
+  display: flex; align-items: center; gap: 8px;
+}
+.section-tag {
+  font-size: 9px; font-family: var(--font-mono);
+  color: var(--muted); background: var(--surface2);
+  border: 1px solid var(--border); border-radius: 3px;
+  padding: 1px 6px;
+}
+
+/* CARDS */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.card-header {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-title {
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 600;
+  color: var(--ink2); text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+/* SITUATION DE TRAVAUX TABLE */
+.sit-table { width: 100%; border-collapse: collapse; }
+.sit-table th {
+  font-size: 9px; font-family: var(--font-mono);
+  text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--muted); padding: 7px 12px;
+  text-align: right; background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.sit-table th:first-child, .sit-table th:nth-child(2) { text-align: left; }
+.sit-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  font-size: 12px; vertical-align: middle;
+  text-align: right;
+}
+.sit-table td:first-child { text-align: left; width: 60px; }
+.sit-table td:nth-child(2) { text-align: left; font-size: 11px; }
+.sit-table tr:last-child td { border-bottom: none; }
+.sit-table tr:hover td { background: rgba(196,83,10,0.02); }
+.sit-table .family-row td {
+  background: var(--surface2);
+  font-family: var(--font-display);
+  font-size: 11px; font-weight: 700;
+  color: var(--ink2); padding: 6px 12px;
+  border-top: 1px solid var(--border);
+}
+.sit-table .total-row td {
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 12px;
+}
+.td-num { font-family: var(--font-mono); font-size: 11px; color: var(--ink2); }
+.td-name { color: var(--ink); line-height: 1.3; max-width: 220px; }
+.td-unit { font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
+.td-qty { font-family: var(--font-mono); font-size: 11px; }
+.td-xaf { font-family: var(--font-mono); font-size: 11px; color: var(--ink); }
+.td-eur { font-family: var(--font-mono); font-size: 10px; color: var(--blue); }
+.td-pct { font-family: var(--font-mono); font-size: 10px; }
+
+.pct-bar-wrap { display: flex; align-items: center; gap: 6px; }
+.pct-bar { width: 50px; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; flex-shrink: 0; }
+.pct-fill { height: 100%; border-radius: 3px; background: var(--green); transition: width 0.3s; }
+.pct-fill.warn { background: var(--accent); }
+.pct-fill.low { background: var(--muted); }
+.pct-val { font-size: 10px; font-family: var(--font-mono); color: var(--muted); }
+
+/* ── RIGHT PANEL ── */
+.right-panel { padding: 18px 16px; overflow-y: auto; height: 100%; display: flex; flex-direction: column; gap: 14px; background: var(--surface); }
+
+/* DECISION BOX */
+.decision-card {
+  border-radius: var(--r); padding: 16px;
+  border: 1.5px solid; margin-bottom: 4px;
+}
+.decision-card.review { background: rgba(139,105,20,0.06); border-color: rgba(139,105,20,0.3); }
+.decision-card.go { background: var(--green-light); border-color: var(--green-border); }
+.decision-card.nogo { background: var(--red-light); border-color: rgba(160,32,32,0.3); }
+.decision-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.decision-icon { font-size: 24px; }
+.decision-label { font-family: var(--font-display); font-size: 16px; font-weight: 800; }
+.decision-card.review .decision-label { color: var(--gold); }
+.decision-card.go .decision-label { color: var(--green); }
+.decision-card.nogo .decision-label { color: var(--red); }
+.decision-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+/* CHECKLIST */
+.check-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 0; border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.check-row:last-child { border-bottom: none; }
+.check-ico { font-size: 12px; flex-shrink: 0; }
+.check-lbl { flex: 1; color: var(--ink2); font-size: 11px; }
+.check-val { font-family: var(--font-mono); font-size: 11px; }
+.ok { color: var(--green); }
+.warn { color: var(--gold); }
+.alert { color: var(--red); }
+
+/* MONTANTS RECAP */
+.montant-table { width: 100%; border-collapse: collapse; }
+.montant-table tr { border-bottom: 1px solid var(--border); }
+.montant-table tr:last-child { border-bottom: none; }
+.montant-table td { padding: 6px 0; font-size: 12px; }
+.montant-table td:last-child { text-align: right; font-family: var(--font-mono); }
+.montant-table .sub { color: var(--muted); font-size: 11px; }
+.montant-table .deduct { color: var(--red); }
+.montant-table .total-row td {
+  padding-top: 10px; font-family: var(--font-display);
+  font-weight: 800; font-size: 13px; color: var(--ink);
+  border-top: 2px solid var(--ink);
+}
+.montant-table .total-row td:last-child { color: var(--accent); }
+
+/* AVANCE SUIVI */
+.avance-bar-wrap { margin: 10px 0; }
+.avance-bar-label { display: flex; justify-content: space-between; font-size: 10px; font-family: var(--font-mono); color: var(--muted); margin-bottom: 4px; }
+.avance-bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.avance-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--green), #2ECC8A); }
+
+/* MINI KPI ROW */
+.kpi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.kpi-mini {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 10px 12px;
+}
+.kpi-mini-label { font-size: 9px; font-family: var(--font-mono); text-transform: uppercase; color: var(--muted); letter-spacing: 0.5px; margin-bottom: 4px; }
+.kpi-mini-val { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1; }
+.kpi-mini-sub { font-size: 10px; color: var(--muted); margin-top: 2px; font-family: var(--font-mono); }
+
+/* PARTIE MANDATER */
+.mandater-block { border-radius: var(--r); overflow: hidden; }
+.mandater-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 12px; border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.mandater-row:last-child { border-bottom: none; }
+.mandater-row.total { background: var(--ink); color: #fff; }
+.mandater-row.total .m-lbl { color: #aaa; }
+.mandater-row.total .m-val { font-family: var(--font-display); font-weight: 800; font-size: 14px; color: #fff; }
+.m-lbl { color: var(--ink2); }
+.m-val { font-family: var(--font-mono); font-size: 11px; color: var(--ink); }
+.m-currency { font-size: 9px; font-family: var(--font-mono); color: var(--muted); margin-left: 4px; }
+
+/* MULTI-DEVISES */
+.devise-split {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  margin-top: 8px;
+}
+.devise-box {
+  border-radius: 5px; padding: 10px 12px;
+  border: 1px solid; text-align: center;
+}
+.devise-box.eur { background: var(--blue-light); border-color: rgba(26,74,140,0.2); }
+.devise-box.xaf { background: var(--green-light); border-color: var(--green-border); }
+.devise-label { font-size: 9px; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.devise-box.eur .devise-label { color: var(--blue); }
+.devise-box.xaf .devise-label { color: var(--green); }
+.devise-val { font-family: var(--font-display); font-size: 15px; font-weight: 700; }
+.devise-box.eur .devise-val { color: var(--blue); }
+.devise-box.xaf .devise-val { color: var(--green); }
+.devise-sub { font-size: 10px; color: var(--muted); font-family: var(--font-mono); margin-top: 2px; }
+
+/* TIMELINE */
+.tl-item { display: flex; gap: 10px; padding: 7px 0; }
+.tl-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border2); flex-shrink: 0; margin-top: 4px;
+}
+.tl-dot.green { background: var(--green); }
+.tl-dot.orange { background: var(--accent); }
+.tl-dot.blue { background: var(--blue); }
+.tl-dot.red { background: var(--red); }
+.tl-text { font-size: 11px; color: var(--ink2); line-height: 1.4; }
+.tl-meta { font-size: 10px; color: var(--muted); font-family: var(--font-mono); margin-top: 2px; }
+
+/* SIGNATURES BLOCK */
+.sig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sig-box {
+  border: 1px dashed var(--border2);
+  border-radius: var(--r); padding: 12px;
+  text-align: center;
+}
+.sig-role { font-size: 9px; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); }
+.sig-name { font-size: 11px; font-weight: 500; color: var(--ink2); margin-top: 4px; }
+.sig-date { font-size: 10px; color: var(--muted); font-family: var(--font-mono); margin-top: 2px; }
+.sig-status { margin-top: 6px; font-size: 10px; }
+.sig-pending { color: var(--gold); font-family: var(--font-mono); }
+.sig-done { color: var(--green); font-family: var(--font-mono); }
+
+/* ALERT BANNER */
+.alert-banner {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 10px 14px;
+  border-radius: var(--r);
+  border: 1px solid;
+  font-size: 12px;
+}
+.alert-banner.warn { background: rgba(139,105,20,0.06); border-color: rgba(139,105,20,0.2); color: var(--gold); }
+.alert-banner.error { background: var(--red-light); border-color: rgba(160,32,32,0.2); color: var(--red); }
+.alert-banner.info { background: var(--blue-light); border-color: rgba(26,74,140,0.2); color: var(--blue); }
+.ab-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.ab-text { line-height: 1.4; }
+
+/* DIVIDER */
+.divider { border: none; border-top: 1px solid var(--border); margin: 4px 0; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.left-panel > *, .right-panel > * {
+  animation: fadeIn 0.25s ease both;
+}
+.left-panel > *:nth-child(1) { animation-delay: 0.05s; }
+.left-panel > *:nth-child(2) { animation-delay: 0.1s; }
+.left-panel > *:nth-child(3) { animation-delay: 0.15s; }
+.right-panel > *:nth-child(1) { animation-delay: 0.05s; }
+.right-panel > *:nth-child(2) { animation-delay: 0.1s; }
+.right-panel > *:nth-child(3) { animation-delay: 0.15s; }
+.right-panel > *:nth-child(4) { animation-delay: 0.2s; }
+
+/* ── BPU PANEL ── */
+.rp-bpu { background: rgba(26,74,140,0.06); border: 1.5px solid rgba(26,74,140,0.22); border-radius: var(--r); overflow: hidden; }
+.bpu-head { padding: 9px 12px; background: var(--blue); display: flex; align-items: center; justify-content: space-between; }
+.bpu-num { font-family: var(--font-mono); font-size: 9.5px; font-weight: 600; color: #fff; letter-spacing: .4px; flex:1; min-width:0; }
+.bpu-close { background: rgba(255,255,255,0.2); border: none; color: #fff; width: 20px; height: 20px; border-radius: 3px; cursor: pointer; font-size: 12px; line-height:1; flex-shrink:0; }
+.bpu-close:hover { background: rgba(255,255,255,0.35); }
+.bpu-body { padding: 10px 12px; display: flex; flex-direction: column; gap: 7px; }
+.bpu-label { font-family: var(--font-display); font-size: 12.5px; font-weight: 700; color: var(--ink); line-height: 1.3; }
+.bpu-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; border-bottom: 1px solid rgba(26,74,140,0.1); font-size: 11.5px; }
+.bpu-row:last-child { border-bottom: none; }
+.bpu-k { color: var(--muted); font-size: 10px; flex-shrink:0; }
+.bpu-v { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink); text-align: right; }
+.bpu-v.big { font-family: var(--font-display); font-size: 14px; font-weight: 800; color: var(--blue); }
+.bpu-desc { padding: 5px 0; border-bottom: 1px solid rgba(26,74,140,0.1); }
+.bpu-desc .bpu-k { margin-bottom: 4px; display:block; }
+.bpu-desc p { font-size: 10.5px; color: var(--ink2); line-height: 1.55; }
+.bpu-note { font-size: 10px; font-family: var(--font-mono); color: var(--accent); line-height: 1.5; padding: 7px 10px; background: rgba(196,83,10,0.06); border-left: 3px solid var(--accent); border-radius: 3px; }
+.bpu-ref { font-size: 9px; font-family: var(--font-mono); color: var(--muted); padding-top: 4px; }
+.bpu-placeholder { padding: 20px 14px; text-align: center; color: var(--muted); font-size: 11px; font-family: var(--font-mono); line-height: 1.7; }
+.bpu-placeholder .ph-icon { font-size: 24px; display:block; margin-bottom: 8px; opacity: .35; }
+
+/* DQE row hover + selected */
+.sit-table tbody tr:not(.family-row):not(.total-row) { cursor: pointer; transition: background 0.1s; }
+.sit-table tbody tr:not(.family-row):not(.total-row):hover td { background: rgba(26,74,140,0.05) !important; }
+.sit-table tbody tr.row-selected td { background: rgba(26,74,140,0.1) !important; }
+
+@keyframes bpuIn { from { opacity:0; transform:translateX(6px); } to { opacity:1; transform:translateX(0); } }
+.rp-bpu.anim { animation: bpuIn 0.18s ease both; }
+
+
+/* ── QTÉ MOIS INPUT ── */
+.qty-input {
+  width: 72px;
+  padding: 4px 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink);
+  background: #fff;
+  border: 1.5px solid var(--blue);
+  border-radius: 4px;
+  text-align: right;
+  outline: none;
+  transition: border-color .12s, box-shadow .12s;
+}
+.qty-input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(26,74,140,.12);
+}
+.qty-input.changed {
+  background: rgba(26,74,140,.06);
+  border-color: var(--blue);
+  font-weight: 600;
+  color: var(--blue);
+}
+.qty-input.warn-input {
+  border-color: var(--accent);
+  background: rgba(196,83,10,.05);
+  color: var(--accent);
+}
+.qty-input::-webkit-inner-spin-button,
+.qty-input::-webkit-outer-spin-button { opacity: 1; }
+
+/* computed cells */
+td.computed-changed { color: var(--blue) !important; font-weight: 600; }
+td.computed-zero { color: var(--muted) !important; }
+
+/* total row highlight */
+.total-row td.total-updated { animation: totalPulse .4s ease; }
+@keyframes totalPulse { 0%,100% { background: var(--ink); } 50% { background: #1A4A8C; } }
+
+/* recalc badge */
+.recalc-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 9px; font-family: var(--font-mono);
+  background: rgba(26,122,74,.1); border: 1px solid rgba(26,122,74,.25);
+  color: var(--green); border-radius: 10px; padding: 2px 8px;
+  margin-left: 8px; opacity: 0; transition: opacity .3s;
+}
+.recalc-badge.visible { opacity: 1; }
+
+
+
+/* ── PAGE SYSTEM ── */
+.pages { flex:1; overflow:hidden; min-height:0; position:relative; }
+.page  { display:none; height:100%; width:100%; }
+.page.active { display:flex; }
+@keyframes pgIn { from{opacity:0;transform:translateY(3px)} to{opacity:1;transform:translateY(0)} }
+.page.active { animation: pgIn .15s ease both; }
+.fp { padding:18px 24px; overflow-y:auto; height:100%; display:flex; flex-direction:column; gap:18px; flex:1; }
+
+
+/* ── ARCHITECTURE PAGE ── */
+.pipe-step { display:flex;gap:14px;padding:12px 16px;background:var(--surface);border:1.5px solid rgba(0,0,0,.08);border-left:4px solid var(--pc);border-radius:6px; }
+.pipe-num { width:28px;height:28px;border-radius:50%;background:var(--pc);color:#fff;font-family:var(--fd);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px; }
+.pipe-body { flex:1; }
+.pipe-title { font-family:var(--fd);font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px; }
+.pipe-desc { font-size:11.5px;color:var(--ink2);margin-bottom:5px;line-height:1.5; }
+.pipe-desc code { font-family:var(--fm);font-size:10.5px;background:rgba(26,74,140,.07);border-radius:3px;padding:1px 5px;color:var(--blue); }
+.pipe-io { display:flex;gap:16px;font-size:10px;font-family:var(--fm); }
+.io-in { color:var(--muted); }
+.io-out { color:var(--green); }
+.pipe-arrow { text-align:center;color:var(--muted);font-size:18px;line-height:1.2; }
+.invariant { font-size:11.5px;font-family:var(--fm);color:var(--ink2);padding:3px 0; }
+.invariant code { background:rgba(26,74,140,.07);border-radius:3px;padding:1px 5px;color:var(--blue);font-size:10.5px; }
+.form-section-title { font-size:10px;font-family:var(--fm);text-transform:uppercase;color:var(--muted);letter-spacing:.5px;margin-bottom:7px; }
+.form-row { display:flex;gap:8px;padding:4px 0;border-bottom:1px solid rgba(0,0,0,.04);align-items:center; }
+.form-row:last-child { border-bottom:none; }
+.form-var { font-family:var(--fm);font-size:11px;font-weight:600;color:var(--blue);min-width:110px; }
+.form-eq { font-family:var(--fm);font-size:11px;color:var(--ink2); }
+.wf-box { padding:10px 12px;border:2px solid;border-radius:7px;text-align:center;min-width:90px; }
+.wf-code { font-family:var(--fm);font-size:10px;font-weight:700;margin-bottom:3px; }
+.wf-name { font-family:var(--fd);font-size:12px;font-weight:700;color:var(--ink); }
+.wf-actor { font-size:9.5px;font-family:var(--fm);color:var(--muted);margin-top:2px; }
+.wf-arr { font-size:20px;color:var(--muted);padding:0 4px;align-self:center; }
+.db-domain { border:1.5px solid;border-radius:7px;padding:10px 12px; }
+.db-dom-title { font-family:var(--fd);font-size:11px;font-weight:800;margin-bottom:7px;text-transform:uppercase;letter-spacing:.3px; }
+.db-dom-table { font-family:var(--fm);font-size:10.5px;color:var(--ink2);padding:2px 0;border-bottom:1px dashed var(--border); }
+.db-dom-table:last-child { border-bottom:none; }
+.db-table-header { padding:8px 14px;color:#fff;font-family:var(--fm);font-size:11px;font-weight:700; }
+.db-schema-table { width:100%;border-collapse:collapse; }
+.db-schema-table th { padding:6px 12px;font-size:8.5px;font-family:var(--fm);text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border);text-align:left; }
+.db-schema-table td { padding:5px 12px;font-size:11px;color:var(--ink2);border-bottom:1px solid rgba(0,0,0,.03); }
+.db-schema-table td code { font-family:var(--fm);font-size:10.5px;color:var(--blue); }
+.db-schema-table tr.alt td { background:var(--surface2); }
+.ddl-header { padding:7px 14px;background:var(--surface2);border-bottom:1px solid var(--border);font-family:var(--fm);font-size:10px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.4px; }
+.ddl-code { padding:14px 16px;font-family:'Courier New',monospace;font-size:11.5px;color:var(--ink);line-height:1.7;margin:0;background:#FAFAF7;overflow-x:auto;white-space:pre; }
+.archi-tab.active { background:var(--blue) !important;border-color:var(--blue) !important;color:#fff !important; }
+
+
+
+/* ═══ ARCHITECTURE ENRICHIE ═══ */
+.archi-tab{font-size:11px;padding:5px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);color:var(--ink2);cursor:pointer;font-family:var(--fd);font-weight:600;transition:all .15s;}
+.archi-tab:hover{border-color:var(--blue);color:var(--blue);}
+.archi-tab.active{background:var(--blue)!important;border-color:var(--blue)!important;color:#fff!important;}
+.ac-title{font-family:var(--fd);font-size:15px;font-weight:800;color:var(--ink);margin-bottom:4px;}
+.ac-sub{font-size:12px;color:var(--muted);margin-bottom:0;}
+.card-block{border:1.5px solid var(--border);border-radius:8px;overflow:hidden;}
+.cb-hd{padding:7px 12px;color:#fff;font-family:var(--fd);font-size:11px;font-weight:700;}
+.cb-blue{background:var(--blue);}.cb-green{background:var(--green);}.cb-accent{background:var(--accent);}.cb-gold{background:var(--gold);}
+.cb-body{padding:8px 12px;display:flex;flex-direction:column;gap:3px;}
+.sr{display:flex;gap:8px;padding:2px 0;border-bottom:1px solid rgba(0,0,0,.04);}
+.sr:last-child{border-bottom:none;}
+.sr-t{font-family:var(--font-mono);font-size:10.5px;font-weight:600;color:var(--blue);min-width:160px;flex-shrink:0;}
+.sr-d{font-size:11px;color:var(--ink2);}
+.ttl{font-size:10px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.5px;margin-bottom:6px;font-weight:700;}
+.tblk{background:#1A1814;border-radius:6px;padding:11px 14px;}
+.tl{font-family:var(--font-mono);font-size:10.5px;line-height:1.7;display:block;}
+.td{color:#6BA3F5;font-weight:700;}.tf{color:#C8C0B8;}.tc{color:#6B6450;font-style:italic;margin-left:4px;}.tcm{color:#7EC8A0;font-weight:600;}
+.cblk{background:#1A1814;border-radius:6px;padding:13px;font-family:var(--font-mono);font-size:10.5px;line-height:1.8;color:#C8C0B8;white-space:pre;}
+.ck{color:#C792EA;}.cf{color:#82AAFF;}.cs{color:#C3E88D;}.cc{color:#546E7A;font-style:italic;}.ct{color:#FFCB6B;}
+.ps{display:flex;gap:14px;padding:11px 14px;background:var(--surface);border:1.5px solid rgba(0,0,0,.08);border-left:4px solid var(--pc);border-radius:6px;}
+.pn{width:26px;height:26px;border-radius:50%;background:var(--pc);color:#fff;font-family:var(--fd);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.pb{flex:1;}.pt{font-family:var(--fd);font-size:12px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.pd{font-size:11px;color:var(--ink2);margin-bottom:4px;line-height:1.5;}
+.pd code,.inv code{font-family:var(--font-mono);font-size:10px;background:rgba(26,74,140,.07);border-radius:3px;padding:1px 4px;color:var(--blue);}
+.pio{display:flex;gap:16px;font-size:10px;font-family:var(--font-mono);}
+.pi{color:var(--muted);}.po{color:var(--green);}
+.parr{text-align:center;color:var(--muted);font-size:16px;line-height:1.2;}
+.inv{font-size:11px;font-family:var(--font-mono);color:var(--ink2);padding:2px 0;}
+.dbd{border:1.5px solid;border-radius:6px;padding:9px 10px;}
+.dbt{font-family:var(--fd);font-size:10px;font-weight:800;margin-bottom:6px;text-transform:uppercase;}
+.dbtb{font-family:var(--font-mono);font-size:10px;color:var(--ink2);padding:2px 0;border-bottom:1px dashed var(--border);}
+.dbtb:last-child{border-bottom:none;}
+.dbhd{padding:7px 12px;color:#fff;font-family:var(--font-mono);font-size:10.5px;font-weight:700;}
+.dbs{width:100%;border-collapse:collapse;}
+.dbs th{padding:5px 10px;font-size:8px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border);text-align:left;}
+.dbs td{padding:4px 10px;font-size:10.5px;color:var(--ink2);border-bottom:1px solid rgba(0,0,0,.03);}
+.dbs td code{font-family:var(--font-mono);font-size:10px;color:var(--blue);}
+.dbs tr.alt td{background:var(--surface2);}
+.mt{width:100%;border-collapse:collapse;}
+.mt th{padding:6px 10px;font-size:9px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border);text-align:left;}
+.mt td{padding:5px 10px;font-size:11px;color:var(--ink2);border-bottom:1px solid rgba(0,0,0,.04);}
+.mt td code{font-family:var(--font-mono);font-size:10px;color:var(--blue);}
+.mt tr.alt td{background:var(--surface2);}
+.nb{padding:7px 12px;border-radius:5px;font-size:10.5px;font-family:var(--font-mono);line-height:1.5;}
+.nb-b{background:rgba(26,74,140,.06);border:1px solid rgba(26,74,140,.2);color:var(--blue);}
+.nb-o{background:rgba(196,83,10,.06);border:1px solid rgba(196,83,10,.2);color:var(--accent);}
+.nb-g{background:rgba(26,122,74,.06);border:1px solid rgba(26,122,74,.2);color:var(--green);}
+.adr{display:flex;gap:12px;padding:10px 12px;background:var(--surface);border:1.5px solid var(--border);border-radius:7px;}
+.adrl{font-family:var(--font-mono);font-size:10px;font-weight:700;color:var(--blue);background:rgba(26,74,140,.08);border-radius:4px;padding:2px 7px;height:fit-content;flex-shrink:0;margin-top:2px;}
+.adrb{flex:1;}
+.adrd{font-family:var(--fd);font-size:12px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.adrw{font-size:11px;color:var(--ink2);margin-bottom:3px;line-height:1.5;}
+.adra{font-size:10px;font-family:var(--font-mono);color:var(--muted);font-style:italic;}
+.rdr{display:flex;gap:12px;padding:9px 12px;border-radius:6px;border:1.5px solid var(--border);background:var(--surface);}
+.rdr-done{border-color:rgba(26,122,74,.3);background:rgba(26,122,74,.04);}
+.rdr-cur{border-color:rgba(196,83,10,.3);background:rgba(196,83,10,.04);}
+.rdp{font-family:var(--fd);font-size:11px;font-weight:700;color:var(--ink);min-width:200px;flex-shrink:0;}
+.rdd{font-family:var(--font-mono);font-size:9px;color:var(--muted);font-weight:400;margin-left:6px;}
+.rdb{font-size:11px;color:var(--ink2);line-height:1.5;}
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo"><div class="logo-mark">M</div>madjanga</div>
+  <div class="topbar-project">
+    <div class="tp-name">Aménagement Accès Ouest — Douala</div>
+    <div class="tp-ref">Marché N° 402/M/MINMAP/CCPM-TR/2014 · MINTP · Groupement MATIERE S.A.S / SOGEA-SATOM</div>
+  </div>
+  <div class="topbar-sep"></div>
+  <div class="tb-chip"><div class="tb-dot"></div>Adoption en cours</div>
+  <button class="tb-btn">↓ Export PDF</button>
+  <button class="tb-btn">↓ Excel</button>
+  <button class="tb-btn danger">Mettre en REVIEW</button>
+</header>
+
+<div class="shell">
+
+<nav class="sidebar">
+  <div class="nav-section">Décompte actif</div>
+  <div class="nav-item active" data-page="recap" onclick="switchPage('recap',this)"><span class="nav-icon">⊞</span>Vue Directeur</div>
+  <div class="nav-item" data-page="dqe" onclick="switchPage('dqe',this)"><span class="nav-icon">📊</span>Situation travaux</div>
+  <div class="nav-section">Paiements</div>
+  <div class="nav-item" data-page="euro" onclick="switchPage('euro',this)"><span class="nav-icon">€</span>Part Euro</div>
+  <div class="nav-item" data-page="cfa" onclick="switchPage('cfa',this)"><span class="nav-icon">₣</span>Part F CFA</div>
+  <div class="nav-item" data-page="tva" onclick="switchPage('tva',this)"><span class="nav-icon">%</span>Part TVA</div>
+  <div class="nav-item" data-page="air" onclick="switchPage('air',this)"><span class="nav-icon">⊛</span>Part AIR</div>
+  <div class="nav-section">Contrôle</div>
+  <div class="nav-item" data-page="avance" onclick="switchPage('avance',this)"><span class="nav-icon">💵</span>Avance démarrage</div>
+  <div class="nav-item" data-page="pieces" onclick="switchPage('pieces',this)"><span class="nav-icon">📎</span>Pièces justif.<span class="nav-badge">1</span></div>
+  <div class="nav-item" data-page="hist" onclick="switchPage('hist',this)"><span class="nav-icon">📋</span>Audit trail</div>
+  <div class="nav-section">Technique</div>
+  <div class="nav-item" data-page="archi" onclick="switchPage('archi',this)"><span class="nav-icon">⚙</span>Architecture</div>
+  <div class="nav-section">Projet</div>
+  <div class="nav-item"><span class="nav-icon">📁</span>Décomptes (7)</div>
+  <div class="nav-item"><span class="nav-icon">⚡</span>OS / Avenants</div>
+  <div class="nav-item"><span class="nav-icon">🤝</span>Groupement</div>
+</nav>
+
+<!-- DC-HEADER -->
+<div class="dc-header">
+  <div class="dc-header-top">
+    <div class="dc-title-block">
+      <div class="dc-badge-row">
+        <span class="badge orange">DÉCOMPTE N°07</span>
+        <span class="badge blue">Octobre 2015</span>
+        <span class="badge">Groupement · Part MATIERE S.A.S</span>
+        <span class="badge blue">AFD</span>
+      </div>
+      <div class="dc-title">Décompte Provisoire N°07 — Travaux Exécutés · Accès Ouest de Douala</div>
+      <div class="dc-subtitle">Titulaire : Groupement SOGEA-SATOM / MATIERE · Mandataire : MATIERE S.A.S · Délai : 30 mois · Notifié 06/10/2014</div>
+    </div>
+    <div class="dc-actions">
+      <button class="btn btn-outline">Commentaire</button>
+      <button class="btn btn-outline">Archiver preuve</button>
+      <button class="btn btn-green">✓ GO — Valider</button>
+    </div>
+  </div>
+  <div class="workflow-bar">
+    <div class="wf-node"><div class="wf-circle done">✓</div><div class="wf-label done">Préparation</div></div>
+    <div class="wf-connector done"></div>
+    <div class="wf-node"><div class="wf-circle done">✓</div><div class="wf-label done">Vérification</div></div>
+    <div class="wf-connector done"></div>
+    <div class="wf-node"><div class="wf-circle active">→</div><div class="wf-label active">Adoption</div></div>
+    <div class="wf-connector"></div>
+    <div class="wf-node"><div class="wf-circle">4</div><div class="wf-label">Soumis MOE</div></div>
+    <div class="wf-connector"></div>
+    <div class="wf-node"><div class="wf-circle">5</div><div class="wf-label">Verrouillé</div></div>
+  </div>
+</div>
+
+<!-- CONTENT ZONE -->
+<div class="content-zone" style="flex:1;min-height:0;">
+
+  <div class="tab-bar">
+    <div class="tab active" data-page="recap" onclick="switchPage('recap',this)">Récapitulatif Direction</div>
+    <div class="tab" data-page="dqe" onclick="switchPage('dqe',this)">DQE — Situation travaux</div>
+    <div class="tab" data-page="euro" onclick="switchPage('euro',this)">Part Euro <span class="tab-badge">€</span></div>
+    <div class="tab" data-page="cfa" onclick="switchPage('cfa',this)">Part F CFA <span class="tab-badge">₣</span></div>
+    <div class="tab" data-page="tva" onclick="switchPage('tva',this)">Part TVA <span class="tab-badge">19,25%</span></div>
+    <div class="tab" data-page="air" onclick="switchPage('air',this)">Part AIR <span class="tab-badge">1,1%</span></div>
+    <div class="tab" data-page="avance" onclick="switchPage('avance',this)">Avance démarrage</div>
+    <div class="tab" data-page="pieces" onclick="switchPage('pieces',this)">Pièces justif.</div>
+    <div class="tab" data-page="hist" onclick="switchPage('hist',this)">Audit trail</div>
+      <div class="tab" data-page="archi" onclick="switchPage('archi',this)">⚙ Architecture</div>
+  </div>
+
+  <!-- PAGES -->
+  <div class="pages">
+
+
+    <!-- ══ PAGE : RÉCAPITULATIF ══ -->
+    <div class="page active" id="page-recap">
+      <div class="left-panel">
+
+      <!-- ALERTES DIRECTEUR -->
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="alert-banner warn">
+          <div class="ab-icon">⚠</div>
+          <div class="ab-text"><strong>1 arbitrage en attente :</strong> Ligne 105.00 — Démolition béton armé (Famille 100) — quantité partielle ce mois (12,87 m³) à confirmer avec le conducteur avant validation.</div>
+        </div>
+        <div class="alert-banner info">
+          <div class="ab-icon">ℹ</div>
+          <div class="ab-text"><strong>Avance de démarrage :</strong> Solde avance intégralement remboursé (A10 ≈ 0 FCFA). Aucune déduction à appliquer sur ce décompte.</div>
+        </div>
+      </div>
+
+      <!-- SITUATION TRAVAUX -->
+      <div>
+        <div class="section-head">
+          <div class="section-title">Situation de travaux — Familles <span class="section-tag">DQE · Part MATIERE</span></div>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-outline" style="font-size:11px;padding:5px 12px">Déplier tout</button>
+            <button class="btn btn-outline" style="font-size:11px;padding:5px 12px">Réduire</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <table class="sit-table">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>Désignation</th>
+                <th>Unité</th>
+                <th>Qté Marché</th>
+                <th>Qté M−1</th>
+                <th>Qté mois</th>
+                <th>Qté cumulée</th>
+                <th>Montant mois HT (XAF)</th>
+                <th>Cumulé HT (XAF)</th>
+                <th>Avt. %</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <!-- FAMILLE 000 -->
+              <tr class="family-row"><td colspan="10">Famille 000 — Installations Générales de l'Entreprise</td></tr>
+              <tr onclick="showBPU('1.00')" data-bpu="1.00" data-num="1.00" data-prix="696890000" data-qm="1.0" data-qm1="0.376" data-cumhtm1="261377055">
+                <td class="td-num">1.00</td>
+                <td class="td-name">Installation de Chantier</td>
+                <td class="td-unit">FT</td>
+                <td class="td-qty">1</td>
+                <td class="td-qty" id="qm1-1.00">0,376</td>
+                <td class="td-qty"><input
+                  type="number"
+                  class="qty-input changed"
+                  id="inp-1.00"
+                  value="0,042"
+                  step="0.001"
+                  min="0"
+                  placeholder="0"
+                  onclick="event.stopPropagation()"
+                  oninput="recalcRow(this, '1.00')"
+                /></td>
+                <td class="td-qty" id="qcum-1.00">0,418</td>
+                <td class="td-xaf" id="ht-1.00" style="">29 269 380</td>
+                <td class="td-xaf" id="cum-1.00">290 646 435</td>
+                <td id="pct-1.00">
+                  <div class="pct-bar-wrap">
+                    <div class="pct-bar"><div class="pct-fill " id="pctfill-1.00" style="width:41.8%"></div></div>
+                    <span class="pct-val" id="pctval-1.00">41.8%</span>
+                  </div>
+                </td>
+              </tr>
+              <tr onclick="showBPU('2.00')" data-bpu="2.00" data-num="2.00" data-prix="45000000" data-qm="1.0" data-qm1="0.0" data-cumhtm1="0">
+                <td class="td-num">2.00</td>
+                <td class="td-name">Laboratoire de Chantier</td>
+                <td class="td-unit">FT</td>
+                <td class="td-qty">1</td>
+                <td class="td-qty" id="qm1-2.00">—</td>
+                <td class="td-qty"><input
+                  type="number"
+                  class="qty-input"
+                  id="inp-2.00"
+                  value=""
+                  step="0.001"
+                  min="0"
+                  placeholder="0"
+                  onclick="event.stopPropagation()"
+                  oninput="recalcRow(this, '2.00')"
+                /></td>
+                <td class="td-qty" id="qcum-2.00">0</td>
+                <td class="td-xaf" id="ht-2.00" style="">—</td>
+                <td class="td-xaf" id="cum-2.00">—</td>
+                <td id="pct-2.00">
+                  <div class="pct-bar-wrap">
+                    <div class="pct-bar"><div class="pct-fill low" id="pctfill-2.00" style="width:0.0%"></div></div>
+                    <span class="pct-val" id="pctval-2.00">0.0%</span>
+                  </div>
+                </td>
+              </tr>
+              <tr onclick="showBPU('3.00')" data-bpu="3.00" data-num="3.00" data-prix="32500000" data-qm="1.0" data-qm1="0.0" data-cumhtm1="0">
+                <td class="td-num">3.00</td>
+                <td class="td-name">Études d'Exécution</td>
+                <td class="td-unit">FT</td>
+                <td class="td-qty">1</td>
+                <td class="td-qty" id="qm1-3.00">—</td>
+                <td class="td-qty"><input
+                  type="number"
+                  class="qty-input"
+                  id="inp-3.00"
+                  value=""
+                  step="0.001"
+                  min="0"
+                  placeholder="0"
+                  onclick="event.stopPropagation()"
+                  oninput="recalcRow(this, '3.00')"
+                /></td>
+                <td class="td-qty" id="qcum-3.00">0</td>
+                <td class="td-xaf" id="ht-3.00" style="">—</td>
+                <td class="td-xaf" id="cum-3.00">—</td>
+                <td id="pct-3.00">
+                  <div class="pct-bar-wrap">
+                    <div class="pct-bar"><div class="pct-fill low" id="pctfill-3.00" style="width:0.0%"></div></div>
+                    <span class="pct-val" id="pctval-3.00">0.0%</span>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- FAMILLE 100 -->
+              <tr class="family-row"><td colspan="10">Famille 100 — Dégagement des emprises</td></tr>
+              <tr onclick="showBPU('101.00')" data-bpu="101.00" data-num="101.00" data-prix="820" data-qm="235000.0" data-qm1="0.0" data-cumhtm1="0">
+                <td class="td-num">101.00</td>
+                <td class="td-name">Nettoyage / débroussaillage</td>
+                <td class="td-unit">M2</td>
+                <td class="td-qty">235000</td>
+                <td class="td-qty" id="qm1-101.00">—</td>
+                <td class="td-qty"><input
+                  type="number"
+                  class="qty-input"
+                  id="inp-101.00"
+                  value=""
+                  step="0.001"
+                  min="0"
+                  placeholder="0"
+                  onclick="event.stopPropagation()"
+                  oninput="recalcRow(this, '101.00')"
+                /></td>
+                <td class="td-qty" id="qcum-101.00">0</td>
+                <td class="td-xaf" id="ht-101.00" style="">—</td>
+                <td class="td-xaf" id="cum-101.00">—</td>
+                <td id="pct-101.00">
+                  <div class="pct-bar-wrap">
+                    <div class="pct-bar"><div class="pct-fill low" id="pctfill-101.00" style="width:0.0%"></div></div>
+                    <span class="pct-val" id="pctval-101.00">0.0%</span>
+                  </div>
+                </td>
+              </tr>
+              <tr onclick="showBPU('105.00')" data-bpu="105.00" data-num="105.00" data-prix="62150" data-qm="420.0" data-qm1="0.0" data-cumhtm1="0">
+                <td class="td-num">105.00</td>
+                <td class="td-name"><span style="color:var(--accent)">⚠ Démolition béton armé</span><br><span style="font-size:9.5px;color:var(--gold)">[Arbitrage requis]</span></td>
+                <td class="td-unit">M3</td>
+                <td class="td-qty">420</td>
+                <td class="td-qty" id="qm1-105.00">—</td>
+                <td class="td-qty"><input
+                  type="number"
+                  class="qty-input warn-input changed"
+                  id="inp-105.00"
+                  value="12,87"
+                  step="0.001"
+                  min="0"
+                  placeholder="0"
+                  onclick="event.stopPropagation()"
+                  oninput="recalcRow(this, '105.00')"
+                /></td>
+                <td class="td-qty" id="qcum-105.00">12,87</td>
+                <td class="td-xaf" id="ht-105.00" style="color:var(--accent)">799 870</td>
+                <td class="td-xaf" id="cum-105.00">799 870</td>
+                <td id="pct-105.00">
+                  <div class="pct-bar-wrap">
+                    <div class="pct-bar"><div class="pct-fill warn" id="pctfill-105.00" style="width:3.1%"></div></div>
+                    <span class="pct-val" id="pctval-105.00">3.1%</span>
+                  </div>
+                </td>
+              </tr>
+              <tr onclick="showBPU('109.08')" data-bpu="109.08" data-num="109.08" data-prix="111424" data-qm="255.0" data-qm1="0.0" data-cumhtm1="0">
+                <td class="td-num">109.08</td>
+                <td class="td-name">Dépose buse métal D800</td>
+                <td class="td-unit">ML</td>
+                <td class="td-qty">255</td>
+                <td class="td-qty" id="qm1-109.08">—</td>
+                <td class="td-qty"><input
+                  type="number"
+                  class="qty-input changed"
+                  id="inp-109.08"
+                  value="5"
+                  step="0.001"
+                  min="0"
+                  placeholder="0"
+                  onclick="event.stopPropagation()"
+                  oninput="recalcRow(this, '109.08')"
+                /></td>
+                <td class="td-qty" id="qcum-109.08">5</td>
+                <td class="td-xaf" id="ht-109.08" style="">557 120</td>
+                <td class="td-xaf" id="cum-109.08">557 120</td>
+                <td id="pct-109.08">
+                  <div class="pct-bar-wrap">
+                    <div class="pct-bar"><div class="pct-fill warn" id="pctfill-109.08" style="width:2.0%"></div></div>
+                    <span class="pct-val" id="pctval-109.08">2.0%</span>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- FAMILLE 200 -->
+              <tr class="family-row"><td colspan="10">Famille 200 — Terrassements généraux</td></tr>
+              <tr onclick="showBPU('202.00')" data-bpu="202.00" data-num="202.00" data-prix="1250" data-qm="27500.0" data-qm1="0.0" data-cumhtm1="0">
+                <td class="td-num">202.00</td>
+                <td class="td-name">Décapage terre végétale</td>
+                <td class="td-unit">M2</td>
+                <td class="td-qty">27500</td>
+                <td class="td-qty" id="qm1-202.00">—</td>
+                <td class="td-qty"><input
+                  type="number"
+                  class="qty-input"
+                  id="inp-202.00"
+                  value=""
+                  step="0.001"
+                  min="0"
+                  placeholder="0"
+                  onclick="event.stopPropagation()"
+                  oninput="recalcRow(this, '202.00')"
+                /></td>
+                <td class="td-qty" id="qcum-202.00">0</td>
+                <td class="td-xaf" id="ht-202.00" style="">—</td>
+                <td class="td-xaf" id="cum-202.00">—</td>
+                <td id="pct-202.00">
+                  <div class="pct-bar-wrap">
+                    <div class="pct-bar"><div class="pct-fill low" id="pctfill-202.00" style="width:0.0%"></div></div>
+                    <span class="pct-val" id="pctval-202.00">0.0%</span>
+                  </div>
+                </td>
+              </tr>
+              <tr onclick="showBPU('203.00')" data-bpu="203.00" data-num="203.00" data-prix="3850" data-qm="105200.0" data-qm1="0.0" data-cumhtm1="0">
+                <td class="td-num">203.00</td>
+                <td class="td-name">Déblais ordinaires dépôt</td>
+                <td class="td-unit">M3</td>
+                <td class="td-qty">105200</td>
+                <td class="td-qty" id="qm1-203.00">—</td>
+                <td class="td-qty"><input
+                  type="number"
+                  class="qty-input"
+                  id="inp-203.00"
+                  value=""
+                  step="0.001"
+                  min="0"
+                  placeholder="0"
+                  onclick="event.stopPropagation()"
+                  oninput="recalcRow(this, '203.00')"
+                /></td>
+                <td class="td-qty" id="qcum-203.00">0</td>
+                <td class="td-xaf" id="ht-203.00" style="">—</td>
+                <td class="td-xaf" id="cum-203.00">—</td>
+                <td id="pct-203.00">
+                  <div class="pct-bar-wrap">
+                    <div class="pct-bar"><div class="pct-fill low" id="pctfill-203.00" style="width:0.0%"></div></div>
+                    <span class="pct-val" id="pctval-203.00">0.0%</span>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- FAMILLE 300 -->
+              <tr class="family-row"><td colspan="10">Famille 300 — Chaussées et trottoirs</td></tr>
+              <tr onclick="showBPU('301.00')" data-bpu="301.00" data-num="301.00" data-prix="18700" data-qm="59100.0" data-qm1="0.0" data-cumhtm1="0">
+                <td class="td-num">301.00</td>
+                <td class="td-name">Couche fondation GNT0/20</td>
+                <td class="td-unit">M3</td>
+                <td class="td-qty">59100</td>
+                <td class="td-qty" id="qm1-301.00">—</td>
+                <td class="td-qty"><input
+                  type="number"
+                  class="qty-input"
+                  id="inp-301.00"
+                  value=""
+                  step="0.001"
+                  min="0"
+                  placeholder="0"
+                  onclick="event.stopPropagation()"
+                  oninput="recalcRow(this, '301.00')"
+                /></td>
+                <td class="td-qty" id="qcum-301.00">0</td>
+                <td class="td-xaf" id="ht-301.00" style="">—</td>
+                <td class="td-xaf" id="cum-301.00">—</td>
+                <td id="pct-301.00">
+                  <div class="pct-bar-wrap">
+                    <div class="pct-bar"><div class="pct-fill low" id="pctfill-301.00" style="width:0.0%"></div></div>
+                    <span class="pct-val" id="pctval-301.00">0.0%</span>
+                  </div>
+                </td>
+              </tr>
+              <tr onclick="showBPU('304.00')" data-bpu="304.00" data-num="304.00" data-prix="920" data-qm="998233.0" data-qm1="0.0" data-cumhtm1="0">
+                <td class="td-num">304.00</td>
+                <td class="td-name">Couche d'imprégnation</td>
+                <td class="td-unit">M2</td>
+                <td class="td-qty">998233</td>
+                <td class="td-qty" id="qm1-304.00">—</td>
+                <td class="td-qty"><input
+                  type="number"
+                  class="qty-input"
+                  id="inp-304.00"
+                  value=""
+                  step="0.001"
+                  min="0"
+                  placeholder="0"
+                  onclick="event.stopPropagation()"
+                  oninput="recalcRow(this, '304.00')"
+                /></td>
+                <td class="td-qty" id="qcum-304.00">0</td>
+                <td class="td-xaf" id="ht-304.00" style="">—</td>
+                <td class="td-xaf" id="cum-304.00">—</td>
+                <td id="pct-304.00">
+                  <div class="pct-bar-wrap">
+                    <div class="pct-bar"><div class="pct-fill low" id="pctfill-304.00" style="width:0.0%"></div></div>
+                    <span class="pct-val" id="pctval-304.00">0.0%</span>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- TOTAUX -->
+              <tr class="total-row" id="total-row">
+                <td colspan="7" style="text-align:right;padding-right:16px;font-size:11px;font-weight:400;color:#aaa">
+                  TOTAL DU MOIS — PART MATIERE HT (XAF)
+                  <span class="recalc-badge" id="recalc-badge">✓ Recalculé</span>
+                </td>
+                <td id="total-ht-mois">79 583 310</td>
+                <td colspan="2" id="total-ht-cum">Cumul: 1 087 581 167</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- RECAPITULATIF PAIEMENTS -->
+      <div>
+        <div class="section-head">
+          <div class="section-title">Récapitulatif des paiements <span class="section-tag">Décompte N°07</span></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Éléments positifs / négatifs — Acompte du mois</div>
+            <div style="font-size:10px;color:var(--muted);font-family:var(--font-mono)">Base cumul M−1 → cumul M</div>
+          </div>
+          <div style="padding:0 16px">
+            <table class="montant-table">
+              <tr>
+                <td class="sub">Avance démarrage (encaissée)</td>
+                <td class="sub">1 090 877 967 XAF</td>
+              </tr>
+              <tr>
+                <td>+ Prestations HT cumulées M</td>
+                <td>1 087 581 167 XAF</td>
+              </tr>
+              <tr>
+                <td>= Sous-total positif cumulé</td>
+                <td>2 178 459 135 XAF</td>
+              </tr>
+              <tr>
+                <td class="sub">Remboursement avance</td>
+                <td class="deduct">0 XAF</td>
+              </tr>
+              <tr>
+                <td class="sub">Retenue de garantie (5%)</td>
+                <td class="deduct">—</td>
+              </tr>
+              <tr>
+                <td class="sub">Pénalité de retard</td>
+                <td class="deduct">—</td>
+              </tr>
+              <tr>
+                <td>Montant TTC (TVA 19,25%)</td>
+                <td>94 903 097 XAF</td>
+              </tr>
+              <tr>
+                <td>− AIR (1,1% part Euros + CFA)</td>
+                <td class="deduct">− 875 416 XAF</td>
+              </tr>
+              <tr class="total-row">
+                <td>NET ACOMPTE DU MOIS</td>
+                <td>94 027 681 XAF</td>
+              </tr>
+            </table>
+          </div>
+          <!-- Devise split -->
+          <div style="padding:12px 16px 16px">
+            <div style="font-size:10px;color:var(--muted);font-family:var(--font-mono);margin-bottom:6px">RÉPARTITION MULTI-DEVISES (53% EUR · 47% XAF)</div>
+            <div class="devise-split">
+              <div class="devise-box eur">
+                <div class="devise-label">Part Euro (53%)</div>
+                <div class="devise-val" id="kpi-eur">64 301,71 €</div>
+                <div class="devise-sub">Net à mandater SOCIETE GENERALE<br>Compte: FR76 3000 3001 9000 0200 9438 332</div>
+              </div>
+              <div class="devise-box xaf">
+                <div class="devise-label">Part F CFA (47%)</div>
+                <div class="devise-val" id="kpi-cfa">36 528 740 ₣</div>
+                <div class="devise-sub">Net à mandater SGBC Yaoundé<br>IBAN: CM21 1000 3002 0005 0205 4213 989</div>
+              </div>
+            </div>
+            <div style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div style="border:1px solid var(--border);border-radius:5px;padding:8px 10px;background:var(--bg)">
+                <div style="font-size:9px;font-family:var(--font-mono);color:var(--muted);text-transform:uppercase">Part TVA → Trésor Public</div>
+                <div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--ink);margin-top:3px" id="kpi-tva-tresor">15 319 787 ₣</div>
+              </div>
+              <div style="border:1px solid var(--border);border-radius:5px;padding:8px 10px;background:var(--bg)">
+                <div style="font-size:9px;font-family:var(--font-mono);color:var(--muted);text-transform:uppercase">Part AIR → Trésor Public</div>
+                <div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--ink);margin-top:3px" id="kpi-air-tresor">875 416 ₣</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIGNATURES -->
+      <div>
+        <div class="section-head">
+          <div class="section-title">Circuit de signatures <span class="section-tag">4 visas requis</span></div>
+        </div>
+        <div class="sig-grid">
+          <div class="sig-box">
+            <div class="sig-role">Dressé par l'entreprise</div>
+            <div class="sig-name">MATIERE S.A.S</div>
+            <div class="sig-status sig-done">✓ Signé — 15 oct. 2015</div>
+          </div>
+          <div class="sig-box">
+            <div class="sig-role">L'Ingénieur du Marché</div>
+            <div class="sig-name">Délégué Rég. TP</div>
+            <div class="sig-status sig-done">✓ Signé — 18 oct. 2015</div>
+          </div>
+          <div class="sig-box">
+            <div class="sig-role">Chef de service du marché (DIR)</div>
+            <div class="sig-name">MINTP / Douala</div>
+            <div class="sig-status sig-pending">⏳ En attente</div>
+          </div>
+          <div class="sig-box" style="border-color:var(--accent);background:var(--accent-light)">
+            <div class="sig-role" style="color:var(--accent)">Directeur de Projet</div>
+            <div class="sig-name">Jean KAMGA</div>
+            <div class="sig-status sig-pending" style="color:var(--accent)">→ Votre validation requise</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /left-panel -->
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+
+      <!-- DÉCISION 60s -->
+      <div class="decision-card review">
+        <div class="decision-top">
+          <div class="decision-icon">⚠</div>
+          <div>
+            <div class="decision-label">REVIEW</div>
+            <div class="decision-sub">1 arbitrage à lever avant GO</div>
+          </div>
+        </div>
+        <div class="check-row">
+          <div class="check-ico ok">✓</div>
+          <div class="check-lbl">Calculs déterministes</div>
+          <div class="check-val ok">Vérifiés</div>
+        </div>
+        <div class="check-row">
+          <div class="check-ico ok">✓</div>
+          <div class="check-lbl">Avance démarrage soldée</div>
+          <div class="check-val ok">A10 ≈ 0 ₣</div>
+        </div>
+        <div class="check-row">
+          <div class="check-ico warn">⚠</div>
+          <div class="check-lbl">Arbitrage béton armé (105.00)</div>
+          <div class="check-val warn">12,87 m³</div>
+        </div>
+        <div class="check-row">
+          <div class="check-ico ok">✓</div>
+          <div class="check-lbl">Multi-devises (53/47%)</div>
+          <div class="check-val ok">Taux verrouillé</div>
+        </div>
+        <div class="check-row">
+          <div class="check-ico ok">✓</div>
+          <div class="check-lbl">TVA 19,25% + AIR 1,1%</div>
+          <div class="check-val ok">Cohérent</div>
+        </div>
+        <div class="check-row">
+          <div class="check-ico ok">✓</div>
+          <div class="check-lbl">Matching DQE↔BPU</div>
+          <div class="check-val ok">97%</div>
+        </div>
+        <div class="check-row" style="border-bottom:none">
+          <div class="check-ico alert">○</div>
+          <div class="check-lbl">Signature DIR manquante</div>
+          <div class="check-val alert">En attente</div>
+        </div>
+      </div>
+
+
+      <!-- ── BPU PANEL ── -->
+      <div id="bpu-panel">
+        <div style="font-size:9px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.6px;margin-bottom:6px">Extrait BPU</div>
+        <div class="rp-bpu">
+          <div class="bpu-placeholder">
+            <span class="ph-icon">📋</span>
+            Cliquer une ligne<br>de la DQE pour afficher<br>l'extrait BPU correspondant
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI MINI -->
+      <div>
+        <div style="font-size:10px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:0.5px;margin-bottom:8px">Avancement projet</div>
+        <div class="kpi-row">
+          <div class="kpi-mini">
+            <div class="kpi-mini-label">Prestations cumulées</div>
+            <div class="kpi-mini-val" style="font-size:13px">1 087 M ₣</div>
+            <div class="kpi-mini-sub">sur 5 454 M ₣ marché</div>
+          </div>
+          <div class="kpi-mini">
+            <div class="kpi-mini-label">Avancement</div>
+            <div class="kpi-mini-val" style="color:var(--accent)">20,5%</div>
+            <div class="kpi-mini-sub">oct. 2015 · 30 mois</div>
+          </div>
+        </div>
+        <div class="avance-bar-wrap" style="margin-top:8px">
+          <div class="avance-bar-label"><span>0%</span><span style="color:var(--accent)">20,5% cumulé</span><span>100%</span></div>
+          <div class="avance-bar"><div class="avance-fill" style="width:20.5%"></div></div>
+        </div>
+      </div>
+
+      <!-- MONTANTS DU MOIS -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Montants mois (acompte)</div>
+          <div style="font-size:10px;color:var(--muted);font-family:var(--font-mono)">Décompte N°7</div>
+        </div>
+        <div style="padding:12px">
+          <div class="mandater-block">
+            <div class="mandater-row">
+              <div class="m-lbl">Prestations HT mois</div>
+              <div class="m-val"><span id="kpi-ht-mois">79 583 310</span><span class="m-currency">₣</span></div>
+            </div>
+            <div class="mandater-row">
+              <div class="m-lbl">TVA (19,25%)</div>
+              <div class="m-val"><span id="kpi-tva">15 319 787</span><span class="m-currency">₣</span></div>
+            </div>
+            <div class="mandater-row">
+              <div class="m-lbl">AIR (1,1%)</div>
+              <div class="m-val" style="color:var(--red)"><span id="kpi-air">875 416</span><span class="m-currency">₣</span></div>
+            </div>
+            <div class="mandater-row">
+              <div class="m-lbl">TTC brut</div>
+              <div class="m-val"><span id="kpi-ttc">94 903 097</span><span class="m-currency">₣</span></div>
+            </div>
+            <div class="mandater-row total">
+              <div class="m-lbl">NET À MANDATER</div>
+              <div class="m-val"><span id="kpi-net">94 027 681</span> ₣</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;font-size:10px;color:var(--muted);font-family:var(--font-mono);line-height:1.5">
+            Part Euros: 64 301,71 € → SOCIETE GENERALE<br>
+            Part CFA: 36 528 740 ₣ → SGBC Yaoundé<br>
+            Imputation: AFD
+          </div>
+        </div>
+      </div>
+
+      <!-- AVANCE DÉMARRAGE -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Suivi avance démarrage</div>
+          <div style="font-size:10px;font-family:var(--font-mono);color:var(--green)">✓ Soldée</div>
+        </div>
+        <div style="padding:12px">
+          <div class="mandater-row" style="padding-left:0;padding-right:0;border-bottom:1px solid var(--border)">
+            <div class="m-lbl">Avance accordée (A3 — 20%)</div>
+            <div class="m-val">1 090 877 967<span class="m-currency">XAF</span></div>
+          </div>
+          <div class="mandater-row" style="padding-left:0;padding-right:0;border-bottom:1px solid var(--border)">
+            <div class="m-lbl">Remboursements cumulés (A9)</div>
+            <div class="m-val">1 090 877 967<span class="m-currency">XAF</span></div>
+          </div>
+          <div class="mandater-row" style="padding-left:0;padding-right:0;border-bottom:none">
+            <div class="m-lbl" style="font-weight:600">Reste à rembourser (A10)</div>
+            <div class="m-val" style="color:var(--green);font-weight:600">≈ 0 ₣</div>
+          </div>
+          <div class="avance-bar-wrap">
+            <div class="avance-bar-label"><span>Remboursé</span><span style="color:var(--green)">100%</span></div>
+            <div class="avance-bar"><div class="avance-fill" style="width:100%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AUDIT TRAIL -->
+      <div>
+        <div style="font-size:10px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:0.5px;margin-bottom:8px">Audit trail récent</div>
+        <div class="tl-item">
+          <div class="tl-dot green"></div>
+          <div>
+            <div class="tl-text">Vérification validée — IQ Paul MBONGO</div>
+            <div class="tl-meta">12 oct. 2015 · 14:22</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot orange"></div>
+          <div>
+            <div class="tl-text">Arbitrage flag — ligne 105.00 béton armé (12,87 m³)</div>
+            <div class="tl-meta">12 oct. 2015 · 14:25 · Tag: REVIEW</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot blue"></div>
+          <div>
+            <div class="tl-text">Import DQE — 303 lignes · 97% matching BPU</div>
+            <div class="tl-meta">08 oct. 2015 · 09:11 · Jean KAMGA</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot green"></div>
+          <div>
+            <div class="tl-text">Taux de change verrouillé — 655,957 XAF/€</div>
+            <div class="tl-meta">07 oct. 2015 · 10:00 · Admin système</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /right-panel -->
+    </div>
+
+    <!-- ══ PAGE : DQE ══ -->
+    <div class="page" id="page-dqe">
+      <div class="fp">
+        <div class="section-head">
+          <div class="section-title">DQE — Situation de travaux <span class="section-tag">Part MATIERE · 303 lignes · 97% matching BPU</span></div>
+        </div>
+        <div class="alert-banner warn">
+          <div class="ab-icon">⚠</div>
+          <div><strong>Ligne 105.00 :</strong> Démolition béton armé — quantité saisie 12,87 m³ — arbitrage en attente avant validation GO.</div>
+        </div>
+        <div class="card">
+          <table class="sit-table">
+            <thead><tr><th>N°</th><th>Désignation</th><th>Unité</th><th>Qté Marché</th><th>Qté M−1</th><th>Qté mois</th><th>Qté cumulée</th><th>Montant mois HT</th><th>Cumulé HT</th><th>Avt.%</th></tr></thead>
+            <tbody>
+              <tr class="family-row"><td colspan="10">Famille 000 — Installations Générales</td></tr>
+              <tr><td class="td-num">1.00</td><td class="td-name">Installation de Chantier</td><td class="td-unit">FT</td><td class="td-qty">1</td><td class="td-qty">0,376</td><td class="td-qty" style="color:var(--accent);font-weight:600">0,042</td><td class="td-qty">0,418</td><td class="td-xaf">29 223 576 ₣</td><td class="td-xaf">290 600 631 ₣</td><td><div class="pct-bar-wrap"><div class="pct-bar"><div class="pct-fill" style="width:42%"></div></div><span class="pct-val">41,8%</span></div></td></tr>
+              <tr class="family-row"><td colspan="10">Famille 100 — Dégagement des emprises</td></tr>
+              <tr><td class="td-num">105.00</td><td class="td-name" style="color:var(--accent)">⚠ Démolition béton armé</td><td class="td-unit">M3</td><td class="td-qty">420</td><td class="td-qty">0</td><td class="td-qty" style="color:var(--accent);font-weight:600">12,87</td><td class="td-qty">12,87</td><td class="td-xaf" style="color:var(--accent)">799 832 ₣</td><td class="td-xaf" style="color:var(--accent)">799 832 ₣</td><td><div class="pct-bar-wrap"><div class="pct-bar"><div class="pct-fill warn" style="width:3%"></div></div><span class="pct-val">3,1%</span></div></td></tr>
+              <tr><td class="td-num">109.08</td><td class="td-name">Dépose buse métal D800</td><td class="td-unit">ML</td><td class="td-qty">255</td><td class="td-qty">0</td><td class="td-qty" style="color:var(--green);font-weight:600">5</td><td class="td-qty">5</td><td class="td-xaf">557 120 ₣</td><td class="td-xaf">557 120 ₣</td><td><div class="pct-bar-wrap"><div class="pct-bar"><div class="pct-fill" style="width:2%"></div></div><span class="pct-val">2%</span></div></td></tr>
+              <tr class="total-row"><td colspan="7" style="text-align:right;padding-right:16px;font-size:11px;font-weight:400;color:#aaa">TOTAL DU MOIS — PART MATIERE HT</td><td>79 583 310 ₣</td><td colspan="2">Cumul : 1 087 581 167 ₣</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE : PART EURO ══ -->
+    <div class="page" id="page-euro">
+      <div class="lp" style="flex:1;min-width:0;">
+        <div class="section-head"><div class="section-title">Part Euro — Net à mandater <span class="section-tag">Pages 1 &amp; 2 · AFD</span></div></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+          <div style="border-radius:6px;padding:12px 14px;border:1.5px solid rgba(26,74,140,.22);background:rgba(26,74,140,.07)"><div style="font-size:8.5px;font-family:var(--font-mono);text-transform:uppercase;color:var(--blue);letter-spacing:.5px;margin-bottom:4px">Net à mandater</div><div style="font-family:var(--font-display);font-size:20px;font-weight:800;color:var(--blue)">64 301,71 €</div><div style="font-size:9.5px;color:var(--muted);font-family:var(--font-mono);margin-top:3px">SOCIETE GENERALE</div></div>
+          <div style="border-radius:6px;padding:12px 14px;border:1.5px solid var(--border);background:var(--surface2)"><div style="font-size:8.5px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.5px;margin-bottom:4px">Cumul M−1</div><div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--ink2)">1 695 849,25 €</div></div>
+          <div style="border-radius:6px;padding:12px 14px;border:1.5px solid var(--border);background:var(--surface2)"><div style="font-size:8.5px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.5px;margin-bottom:4px">Cumul M</div><div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--ink2)">1 760 150,96 €</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Récapitulatif pages 1 &amp; 2</div><div style="font-size:11px;font-family:var(--font-mono);font-weight:600;color:var(--blue)">64 301,71 €</div></div>
+          <div style="padding:0 14px">
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px"><span>Acompte HT mois Part Euro (53%)</span><span style="font-family:var(--font-mono)">42 179 154 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:11px;color:var(--muted)"><span>↳ Cumul M−1 Part Euro</span><span style="font-family:var(--font-mono)">1 695 849,25 €</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px"><span>AIR déduire Part Euro</span><span style="font-family:var(--font-mono)">0 €</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;background:var(--ink);margin:0 -14px;padding:10px 14px;"><span style="color:#aaa;font-size:12px">NET À MANDATER EN EUROS</span><span style="font-family:var(--font-display);font-size:15px;font-weight:800;color:#fff">64 301,71 €</span></div>
+          </div>
+          <div style="padding:10px 14px;font-size:10.5px;font-family:var(--font-mono);line-height:1.6;color:var(--muted);border-top:1px solid var(--border)">
+            <strong style="color:var(--ink2)">En lettres :</strong> Soixante Quatre Mille Trois Cent Un Euros et Soixante et Onze Centimes
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Coordonnées bancaires</div></div>
+          <div style="padding:0 14px">
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">Bénéficiaire</span><span style="font-family:var(--font-mono);font-size:11px">MATIERE S.A.S</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">Banque</span><span style="font-family:var(--font-mono);font-size:11px">SOCIETE GENERALE</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">Domiciliation</span><span style="font-family:var(--font-mono);font-size:11px">AGENCE AURILLAC (00190)</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">IBAN</span><span style="font-family:var(--font-mono);font-size:11px">FR76 3000 3001 9000 0200 9438 332</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">BIC/SWIFT</span><span style="font-family:var(--font-mono);font-size:11px">SOGEFRPP</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;font-size:12px"><span style="color:var(--ink2)">Imputation</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--blue);font-weight:600">AFD</span></div>
+          </div>
+        </div>
+        <div style="padding:10px 13px;background:rgba(26,74,140,.07);border:1px solid rgba(26,74,140,.22);border-radius:6px;font-size:10.5px;font-family:var(--font-mono);color:var(--ink2);line-height:1.6">
+          Taux contractuel verrouillé : <strong style="color:var(--blue)">655,957 XAF/€</strong> — Taux fixe BCE · CCAP Art. 8 · applicable toute la durée du marché.<br>
+          AIR 1,1% = 0 € sur la part euro (déduit en totalité sur la Part CFA).
+        </div>
+      </div>
+      <div class="rp" style="width:260px;">
+        <div style="font-size:9px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.6px;margin-bottom:6px">Contrôle calcul</div>
+        <div class="card">
+          <div style="padding:10px 14px">
+            <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:11.5px"><span style="color:var(--muted)">HT mois total</span><span style="font-family:var(--font-mono)">79 583 310 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:11.5px"><span style="color:var(--muted)">× 53%</span><span style="font-family:var(--font-mono);color:var(--blue)">42 179 154 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:11.5px"><span style="color:var(--muted)">÷ 655,957</span><span style="font-family:var(--font-mono);color:var(--blue)">= 64 301,71 €</span></div>
+            <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:11.5px;background:var(--ink);margin:4px -14px -10px;padding:8px 14px"><span style="color:#aaa">Net mandaté</span><span style="font-family:var(--font-display);font-weight:800;color:#fff">64 301,71 €</span></div>
+          </div>
+        </div>
+        <div style="height:8px;border-radius:4px;overflow:hidden;display:flex;margin-top:12px;margin-bottom:4px"><div style="width:53%;background:var(--blue)"></div><div style="width:47%;background:var(--green)"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:9.5px;font-family:var(--font-mono)"><span style="color:var(--blue)">53% Euro</span><span style="color:var(--green)">47% CFA</span></div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE : PART CFA ══ -->
+    <div class="page" id="page-cfa">
+      <div class="lp" style="flex:1;min-width:0;">
+        <div class="section-head"><div class="section-title">Part F CFA — Net à mandater <span class="section-tag">Pages 3 &amp; 4 · AFD</span></div></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+          <div style="border-radius:6px;padding:12px 14px;border:1.5px solid rgba(26,122,74,.25);background:rgba(26,122,74,.07)"><div style="font-size:8.5px;font-family:var(--font-mono);text-transform:uppercase;color:var(--green);letter-spacing:.5px;margin-bottom:4px">Net à mandater</div><div style="font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--green)">36 528 740 ₣</div><div style="font-size:9.5px;color:var(--muted);font-family:var(--font-mono);margin-top:3px">SGBC Yaoundé</div></div>
+          <div style="border-radius:6px;padding:12px 14px;border:1.5px solid var(--border);background:var(--surface2)"><div style="font-size:8.5px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.5px;margin-bottom:4px">Cumul M−1</div><div style="font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--ink2)">986 471 637 ₣</div></div>
+          <div style="border-radius:6px;padding:12px 14px;border:1.5px solid var(--border);background:var(--surface2)"><div style="font-size:8.5px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.5px;margin-bottom:4px">Cumul M</div><div style="font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--ink2)">1 023 875 793 ₣</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Récapitulatif pages 3 &amp; 4</div><div style="font-size:11px;font-family:var(--font-mono);font-weight:600;color:var(--green)">36 528 740 ₣</div></div>
+          <div style="padding:0 14px">
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px"><span>Acompte HT mois Part CFA (47%)</span><span style="font-family:var(--font-mono)">37 404 156 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px"><span style="color:var(--red)">− AIR 1,1% (déduit en totalité sur CFA)</span><span style="font-family:var(--font-mono);color:var(--red)">− 875 416 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;background:var(--ink);margin:0 -14px;padding:10px 14px;"><span style="color:#aaa;font-size:12px">NET À MANDATER EN F CFA</span><span style="font-family:var(--font-display);font-size:15px;font-weight:800;color:#fff">36 528 740 ₣</span></div>
+          </div>
+          <div style="padding:10px 14px;font-size:10.5px;font-family:var(--font-mono);line-height:1.6;color:var(--muted);border-top:1px solid var(--border)">
+            <strong style="color:var(--ink2)">En lettres :</strong> Trente Six Millions Cinq Cent Vingt Huit Mille Sept Cent Quarante Francs CFA
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Coordonnées bancaires</div></div>
+          <div style="padding:0 14px">
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">Bénéficiaire</span><span style="font-family:var(--font-mono);font-size:11px">MATIERE S.A.S</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">Banque</span><span style="font-family:var(--font-mono);font-size:11px">SOCIETE GENERALE CAMEROUN</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">Domiciliation</span><span style="font-family:var(--font-mono);font-size:11px">AGENCE YAOUNDE HOTEL DE VILLE</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">IBAN</span><span style="font-family:var(--font-mono);font-size:11px">CM21 1000 3002 0005 0205 4213 989</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;font-size:12px"><span style="color:var(--ink2)">BIC/SWIFT</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--green);font-weight:600">SGCMCMCX</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="rp" style="width:260px;">
+        <div style="font-size:9px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.6px;margin-bottom:6px">Détail déduction AIR</div>
+        <div class="card">
+          <div style="padding:10px 14px">
+            <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:11.5px"><span style="color:var(--muted)">HT CFA mois (47%)</span><span style="font-family:var(--font-mono);color:var(--green)">37 404 156 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:11.5px"><span style="color:var(--muted)">AIR 1,1% total HT</span><span style="font-family:var(--font-mono);color:var(--red)">− 875 416 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 14px;font-size:11.5px;background:var(--ink);margin:4px -14px -10px"><span style="color:#aaa">Net CFA</span><span style="font-family:var(--font-display);font-weight:800;color:#fff">36 528 740 ₣</span></div>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding:10px 12px;background:rgba(26,122,74,.08);border:1px solid rgba(26,122,74,.25);border-radius:6px;font-size:10.5px;font-family:var(--font-mono);color:var(--ink2);line-height:1.6">
+          AIR calculé sur total HT (€+₣) et déduit <strong>en totalité</strong> sur Part CFA.<br>Part AIR € = 0 · Part AIR ₣ = 875 416<br><strong style="color:var(--green)">Total = 875 416 ₣ ✓ Bon</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE : TVA ══ -->
+    <div class="page" id="page-tva">
+      <div class="lp" style="flex:1;min-width:0;">
+        <div class="section-head"><div class="section-title">Part TVA — 19,25% <span class="section-tag">Pages 7 &amp; 8 · Trésor Public · BIP MINTP</span></div></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+          <div style="border-radius:6px;padding:12px 14px;border:1.5px solid rgba(139,105,20,.3);background:rgba(139,105,20,.07)"><div style="font-size:8.5px;font-family:var(--font-mono);text-transform:uppercase;color:var(--gold);letter-spacing:.5px;margin-bottom:4px">TVA du mois</div><div style="font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--gold)">15 319 787 ₣</div><div style="font-size:9.5px;color:var(--muted);font-family:var(--font-mono);margin-top:3px">→ Trésor Public · BIP MINTP</div></div>
+          <div style="border-radius:6px;padding:12px 14px;border:1.5px solid var(--border);background:var(--surface2)"><div style="font-size:8.5px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.5px;margin-bottom:4px">Cumul M−1</div><div style="font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--ink2)">404 033 596 ₣</div></div>
+          <div style="border-radius:6px;padding:12px 14px;border:1.5px solid var(--border);background:var(--surface2)"><div style="font-size:8.5px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.5px;margin-bottom:4px">Cumul M</div><div style="font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--ink2)">419 353 383 ₣</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Récapitulatif TVA pages 7 &amp; 8</div><div style="font-size:11px;font-family:var(--font-mono);font-weight:600;color:var(--gold)">15 319 787 ₣</div></div>
+          <div style="padding:0 14px">
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px"><span>Base TVA (HT mois)</span><span style="font-family:var(--font-mono)">79 583 311 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px"><span>× 19,25%</span><span style="font-family:var(--font-mono);color:var(--gold)">= 15 319 787 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;background:var(--ink);margin:0 -14px;padding:10px 14px;"><span style="color:#aaa;font-size:12px">PART TVA — NET À MANDATER</span><span style="font-family:var(--font-display);font-size:15px;font-weight:800;color:#fff">15 319 787 ₣</span></div>
+          </div>
+          <div style="padding:10px 14px;font-size:10.5px;font-family:var(--font-mono);line-height:1.6;color:var(--muted);border-top:1px solid var(--border)">
+            <strong style="color:var(--ink2)">En lettres :</strong> Quinze Millions Trois Cent Dix Neuf Mille Sept Cent Quatre Vingt Sept Francs CFA
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Bénéficiaire</div></div>
+          <div style="padding:0 14px">
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">Bénéficiaire</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--gold);font-weight:600">TRESOR PUBLIC</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;font-size:12px"><span style="color:var(--ink2)">Imputation</span><span style="font-family:var(--font-mono);font-size:11px">BIP MINTP</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="rp" style="width:240px;">
+        <div class="card">
+          <div class="card-header"><div class="card-title">Vérification</div><div style="font-family:var(--font-mono);font-size:10px;color:var(--green)">✓ Bon</div></div>
+          <div style="padding:10px 14px">
+            <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:11.5px"><span style="color:var(--muted)">HT mois</span><span style="font-family:var(--font-mono)">79 583 311 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:11.5px"><span style="color:var(--muted)">× 19,25%</span><span style="font-family:var(--font-mono);color:var(--gold)">15 319 787 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 14px;font-size:11.5px;background:var(--ink);margin:4px -14px -10px"><span style="color:#aaa">Contrôle</span><span style="font-family:var(--font-mono);color:#6edba0">✓ Correct</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE : AIR ══ -->
+    <div class="page" id="page-air">
+      <div class="lp" style="flex:1;min-width:0;">
+        <div class="section-head"><div class="section-title">Part A.I.R. — 1,1% <span class="section-tag">Pages 5 &amp; 6 · Trésor Public · AFD</span></div></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+          <div style="border-radius:6px;padding:12px 14px;border:1.5px solid rgba(160,32,32,.25);background:rgba(160,32,32,.06)"><div style="font-size:8.5px;font-family:var(--font-mono);text-transform:uppercase;color:var(--red);letter-spacing:.5px;margin-bottom:4px">AIR du mois</div><div style="font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--red)">875 416 ₣</div><div style="font-size:9.5px;color:var(--muted);font-family:var(--font-mono);margin-top:3px">→ Trésor Public · AFD</div></div>
+          <div style="border-radius:6px;padding:12px 14px;border:1.5px solid var(--border);background:var(--surface2)"><div style="font-size:8.5px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.5px;margin-bottom:4px">Cumul M−1</div><div style="font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--ink2)">23 087 634 ₣</div></div>
+          <div style="border-radius:6px;padding:12px 14px;border:1.5px solid var(--border);background:var(--surface2)"><div style="font-size:8.5px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.5px;margin-bottom:4px">Cumul M</div><div style="font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--ink2)">23 963 050 ₣</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Détail A.I.R. pages 5 &amp; 6</div><div style="font-size:11px;font-family:var(--font-mono);font-weight:600;color:var(--red)">875 416 ₣</div></div>
+          <div style="padding:0 14px">
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px"><span>Base AIR (HT total € + ₣)</span><span style="font-family:var(--font-mono)">79 583 310 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px"><span>× 1,1%</span><span style="font-family:var(--font-mono);color:var(--red)">= 875 416 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:11px;color:var(--muted)"><span>↳ Part AIR sur euros</span><span style="font-family:var(--font-mono)">0 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:11px;color:var(--muted)"><span>↳ Part AIR sur CFA (totalité)</span><span style="font-family:var(--font-mono);color:var(--red)">875 416 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;background:var(--ink);margin:0 -14px;padding:10px 14px;"><span style="color:#aaa;font-size:12px">TOTAL AIR → TRÉSOR PUBLIC</span><span style="font-family:var(--font-display);font-size:15px;font-weight:800;color:#fff">875 416 ₣</span></div>
+          </div>
+          <div style="padding:10px 14px;font-size:10.5px;font-family:var(--font-mono);line-height:1.6;color:var(--muted);border-top:1px solid var(--border)">
+            Part AIR € = 0 + Part AIR ₣ = 875 416 = <strong style="color:var(--green)">875 416 ₣ ✓ Bon</strong>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Bénéficiaire</div></div>
+          <div style="padding:0 14px">
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">Bénéficiaire</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--red);font-weight:600">TRESOR PUBLIC</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;font-size:12px"><span style="color:var(--ink2)">Imputation</span><span style="font-family:var(--font-mono);font-size:11px">AFD</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="rp" style="width:240px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+          <div style="padding:12px;border:1.5px solid rgba(26,74,140,.22);border-radius:6px;background:rgba(26,74,140,.06);text-align:center"><div style="font-size:9px;font-family:var(--font-mono);color:var(--blue);text-transform:uppercase;margin-bottom:6px">Part Euros</div><div style="font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--blue)">0 ₣</div></div>
+          <div style="padding:12px;border:1.5px solid rgba(160,32,32,.22);border-radius:6px;background:rgba(160,32,32,.06);text-align:center"><div style="font-size:9px;font-family:var(--font-mono);color:var(--red);text-transform:uppercase;margin-bottom:6px">Part F CFA</div><div style="font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--red)">875 416 ₣</div></div>
+        </div>
+        <div style="padding:10px 12px;background:rgba(160,32,32,.06);border:1px solid rgba(160,32,32,.2);border-radius:6px;font-size:10.5px;font-family:var(--font-mono);color:var(--ink2);line-height:1.6">
+          AIR prélevé à 1,1% sur total HT toutes devises.<br>Déduit en totalité sur Part CFA.<br><br><strong>AIR mois :</strong> 875 416 ₣<br><strong>AIR cumulé M :</strong> 23 963 050 ₣
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE : AVANCE ══ -->
+    <div class="page" id="page-avance">
+      <div class="lp" style="flex:1;min-width:0;">
+        <div class="section-head"><div class="section-title">Avance de démarrage <span class="section-tag">20% marché · Caution N° 22379 · SOCIETE GENERALE CAMEROUN</span></div></div>
+        <div class="alert-banner ok"><div class="ab-icon">✓</div><div><strong>Avance intégralement remboursée</strong> — A10 ≈ 0 FCFA. Initier la demande de mainlevée totale de la caution N° 22379 auprès de SOCIETE GENERALE CAMEROUN.</div></div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Calcul de l'avance (20% du marché)</div></div>
+          <div style="padding:0 14px">
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">A1 — Montant HT marché Part MATIERE</span><span style="font-family:var(--font-mono);font-size:11px">5 454 389 837 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">A2 — Taux avance</span><span style="font-family:var(--font-mono);font-size:11px">20%</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px;background:rgba(196,83,10,.05)"><span style="color:var(--accent);font-weight:600">A3 — Avance HTVA accordée</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--accent);font-weight:600">1 090 877 967 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:5px 0 5px 16px;border-bottom:1px solid rgba(0,0,0,.04);font-size:11px;color:var(--muted)"><span>↳ Part Euro (53%)</span><span style="font-family:var(--font-mono)">881 407,35 €</span></div>
+            <div style="display:flex;justify-content:space-between;padding:5px 0 7px 16px;border-bottom:1px solid rgba(0,0,0,.04);font-size:11px;color:var(--muted)"><span>↳ Part CFA (47%)</span><span style="font-family:var(--font-mono)">512 712 645 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">A4 — TVA avance (19,25%)</span><span style="font-family:var(--font-mono);font-size:11px">209 994 009 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;font-size:12px;font-weight:600"><span style="color:var(--ink)">Avance TTC versée</span><span style="font-family:var(--font-mono);font-size:11px">1 300 871 976 ₣</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Suivi remboursements</div><div style="font-family:var(--font-mono);font-size:10px;color:var(--green)">✓ Soldée</div></div>
+          <div style="padding:0 14px">
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">A5 — Remboursements cumulés M−1</span><span style="font-family:var(--font-mono);font-size:11px">1 090 877 967 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">A8 — À rembourser ce mois</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--green);font-weight:600">0 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:12px"><span style="color:var(--ink2)">A9 — Remboursements cumulés M</span><span style="font-family:var(--font-mono);font-size:11px">1 090 877 967 ₣</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0;background:rgba(26,122,74,.08);font-size:12px;font-weight:600;padding:10px 14px;margin:0 -14px"><span style="color:var(--green)">A10 — Reste à rembourser</span><span style="font-family:var(--font-mono);color:var(--green);font-weight:700">≈ 0 ₣ ✓</span></div>
+          </div>
+        </div>
+        <div style="height:8px;border-radius:4px;overflow:hidden;background:var(--border)"><div style="width:100%;height:100%;background:linear-gradient(90deg,var(--green),#34c87e)"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;font-family:var(--font-mono);color:var(--muted)"><span>Remboursé</span><span style="color:var(--green)">100%</span></div>
+      </div>
+      <div class="rp" style="width:240px;">
+        <div style="font-size:9px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.6px;margin-bottom:8px">Résumé avance</div>
+        <div class="kpi-row">
+          <div class="kpi-mini"><div class="kpi-mini-label">Avance HTVA</div><div class="kpi-mini-val" style="font-size:12px">1 091 M ₣</div><div class="kpi-mini-sub">TTC : 1 301 M ₣</div></div>
+          <div class="kpi-mini"><div class="kpi-mini-label">Solde restant</div><div class="kpi-mini-val" style="color:var(--green)">≈ 0 ₣</div><div class="kpi-mini-sub">Soldée ✓</div></div>
+        </div>
+        <div style="margin-top:12px;padding:10px 12px;background:rgba(26,122,74,.08);border:1px solid rgba(26,122,74,.25);border-radius:6px;font-size:10.5px;font-family:var(--font-mono);color:var(--ink2);line-height:1.6">
+          <strong style="color:var(--green)">Action recommandée</strong><br><br>Initier la demande de mainlevée totale de la caution N° 22379 auprès de SOCIETE GENERALE CAMEROUN pour libérer la garantie bancaire.
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE : PIÈCES ══ -->
+    <div class="page" id="page-pieces">
+      <div class="fp">
+        <div class="section-head">
+          <div class="section-title">Pièces justificatives <span class="section-tag">7/9 · Score 78%</span></div>
+          <button class="btn btn-outline" style="font-size:11px;padding:5px 12px">+ Ajouter</button>
+        </div>
+        <div class="alert-banner warn"><div class="ab-icon">⚠</div><div>Score 78% — 1 pièce manquante (note arbitrage 105.00) · 1 by-pass tracé (PV réception Fam. 300 — en attente MOE) · 7 pièces fournies</div></div>
+        <div class="card">
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid rgba(0,0,0,.05)"><span style="font-size:16px">📄</span><div style="flex:1"><div style="font-size:12px;color:var(--ink)">Attachement N°07 — Octobre 2015</div><div style="font-size:10px;color:var(--muted);margin-top:1px">Signé conducteur Jean KAMGA · 10 oct. 2015</div></div><div style="font-size:9.5px;font-family:var(--font-mono);padding:2px 8px;border-radius:3px;border:1px solid rgba(26,122,74,.25);background:rgba(26,122,74,.08);color:var(--green)">✓ Fournie</div></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid rgba(0,0,0,.05)"><span style="font-size:16px">📊</span><div style="flex:1"><div style="font-size:12px;color:var(--ink)">DQE complète — 303 lignes exportées</div><div style="font-size:10px;color:var(--muted);margin-top:1px">97% matching BPU · 08 oct. 2015</div></div><div style="font-size:9.5px;font-family:var(--font-mono);padding:2px 8px;border-radius:3px;border:1px solid rgba(26,122,74,.25);background:rgba(26,122,74,.08);color:var(--green)">✓ Générée</div></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid rgba(0,0,0,.05)"><span style="font-size:16px">📸</span><div style="flex:1"><div style="font-size:12px;color:var(--ink)">Rapport photographique chantier — 42 photos</div><div style="font-size:10px;color:var(--muted);margin-top:1px">Familles 000, 100 · Géolocalisées · 09 oct. 2015</div></div><div style="font-size:9.5px;font-family:var(--font-mono);padding:2px 8px;border-radius:3px;border:1px solid rgba(26,122,74,.25);background:rgba(26,122,74,.08);color:var(--green)">✓ Fournie</div></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid rgba(0,0,0,.05)"><span style="font-size:16px">📋</span><div style="flex:1"><div style="font-size:12px;color:var(--ink)">Journal de chantier — Semaines 40 à 43</div><div style="font-size:10px;color:var(--muted);margin-top:1px">Visé chef chantier + conducteur · Oct. 2015</div></div><div style="font-size:9.5px;font-family:var(--font-mono);padding:2px 8px;border-radius:3px;border:1px solid rgba(26,122,74,.25);background:rgba(26,122,74,.08);color:var(--green)">✓ Fournie</div></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid rgba(0,0,0,.05)"><span style="font-size:16px">🔬</span><div style="flex:1"><div style="font-size:12px;color:var(--ink)">PV réception couche fondation (Fam. 300)</div><div style="font-size:10px;color:var(--muted);margin-top:1px">By-pass tracé Jean KAMGA 12 oct. — en attente MOE</div></div><div style="font-size:9.5px;font-family:var(--font-mono);padding:2px 8px;border-radius:3px;border:1px solid rgba(139,105,20,.3);background:rgba(139,105,20,.07);color:var(--gold)">⚠ By-pass</div></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid rgba(0,0,0,.05)"><span style="font-size:16px">📐</span><div style="flex:1"><div style="font-size:12px;color:var(--ink)">Plan d'exécution approuvé — Fam. 200/300</div><div style="font-size:10px;color:var(--muted);margin-top:1px">Rev. C · Visé bureau d'études · 02 oct. 2015</div></div><div style="font-size:9.5px;font-family:var(--font-mono);padding:2px 8px;border-radius:3px;border:1px solid rgba(26,122,74,.25);background:rgba(26,122,74,.08);color:var(--green)">✓ Fournie</div></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid rgba(0,0,0,.05)"><span style="font-size:16px">⚖️</span><div style="flex:1"><div style="font-size:12px;color:var(--ink)">Bordereau pesée — Dépose buse D800 (109.08)</div><div style="font-size:10px;color:var(--muted);margin-top:1px">5 ml · PV signé conducteur + MOE · 11 oct. 2015</div></div><div style="font-size:9.5px;font-family:var(--font-mono);padding:2px 8px;border-radius:3px;border:1px solid rgba(26,122,74,.25);background:rgba(26,122,74,.08);color:var(--green)">✓ Fournie</div></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid rgba(0,0,0,.05)"><span style="font-size:16px">📑</span><div style="flex:1"><div style="font-size:12px;color:var(--ink)">Note d'arbitrage — Ligne 105.00 béton armé</div><div style="font-size:10px;color:var(--muted);margin-top:1px">12,87 m³ — En cours de rédaction</div></div><div style="font-size:9.5px;font-family:var(--font-mono);padding:2px 8px;border-radius:3px;border:1px solid rgba(160,32,32,.25);background:rgba(160,32,32,.06);color:var(--red)">✗ Manquante</div></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 14px"><span style="font-size:16px">🏦</span><div style="flex:1"><div style="font-size:12px;color:var(--ink)">Attestation mainlevée caution N° 22379</div><div style="font-size:10px;color:var(--muted);margin-top:1px">À demander à SOCIETE GENERALE CAMEROUN</div></div><div style="font-size:9.5px;font-family:var(--font-mono);padding:2px 8px;border-radius:3px;border:1px solid rgba(139,105,20,.3);background:rgba(139,105,20,.07);color:var(--gold)">⚠ À initier</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE : AUDIT TRAIL ══ -->
+    <div class="page" id="page-hist">
+      <div class="fp">
+        <div class="section-head"><div class="section-title">Audit trail complet <span class="section-tag">Traçabilité immuable · Horodaté · Non altérable</span></div></div>
+        <div class="card" style="padding:4px 0">
+          <div style="display:flex;gap:12px;padding:10px 16px;border-bottom:1px solid var(--border)"><div style="width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px"></div><div><div style="font-size:12px;color:var(--ink2)"><strong>Adoption en cours</strong> — Transmis au Directeur Jean KAMGA pour GO / REVIEW / NO-GO</div><div style="font-size:9.5px;color:var(--muted);font-family:var(--font-mono);margin-top:2px">13 oct. 2015 · 09:00 · Paul MBONGO</div></div></div>
+          <div style="display:flex;gap:12px;padding:10px 16px;border-bottom:1px solid var(--border)"><div style="width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px"></div><div><div style="font-size:12px;color:var(--ink2)"><strong>Vérification validée</strong> — 7/9 checklist OK · 1 by-pass accepté (PV réception Fam. 300)</div><div style="font-size:9.5px;color:var(--muted);font-family:var(--font-mono);margin-top:2px">12 oct. 2015 · 14:22 · Paul MBONGO</div></div></div>
+          <div style="display:flex;gap:12px;padding:10px 16px;border-bottom:1px solid var(--border)"><div style="width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px"></div><div><div style="font-size:12px;color:var(--ink2)"><strong>Flag REVIEW</strong> — Arbitrage requis ligne 105.00 béton armé (12,87 m³)</div><div style="font-size:9.5px;color:var(--muted);font-family:var(--font-mono);margin-top:2px">12 oct. 2015 · 14:25 · Paul MBONGO · Tag: ARBITRAGE</div></div></div>
+          <div style="display:flex;gap:12px;padding:10px 16px;border-bottom:1px solid var(--border)"><div style="width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px"></div><div><div style="font-size:12px;color:var(--ink2)"><strong>By-pass tracé</strong> — PV réception couche fondation · en attente signature MOE</div><div style="font-size:9.5px;color:var(--muted);font-family:var(--font-mono);margin-top:2px">12 oct. 2015 · 14:05 · Jean KAMGA · Tag: BY-PASS</div></div></div>
+          <div style="display:flex;gap:12px;padding:10px 16px;border-bottom:1px solid var(--border)"><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px"></div><div><div style="font-size:12px;color:var(--ink2)"><strong>Passé en Vérification</strong> — Transmis à Paul MBONGO</div><div style="font-size:9.5px;color:var(--muted);font-family:var(--font-mono);margin-top:2px">11 oct. 2015 · 16:30 · Jean KAMGA</div></div></div>
+          <div style="display:flex;gap:12px;padding:10px 16px;border-bottom:1px solid var(--border)"><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px"></div><div><div style="font-size:12px;color:var(--ink2)"><strong>Rapport photographique</strong> — 42 photos géolocalisées importées</div><div style="font-size:9.5px;color:var(--muted);font-family:var(--font-mono);margin-top:2px">09 oct. 2015 · 11:14 · Conducteur terrain</div></div></div>
+          <div style="display:flex;gap:12px;padding:10px 16px;border-bottom:1px solid var(--border)"><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px"></div><div><div style="font-size:12px;color:var(--ink2)"><strong>DQE importée</strong> — 303 lignes · 97% matching BPU · 5 lignes sans correspondance</div><div style="font-size:9.5px;color:var(--muted);font-family:var(--font-mono);margin-top:2px">08 oct. 2015 · 09:11 · Jean KAMGA</div></div></div>
+          <div style="display:flex;gap:12px;padding:10px 16px;border-bottom:1px solid var(--border)"><div style="width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px"></div><div><div style="font-size:12px;color:var(--ink2)"><strong>Taux de change verrouillé</strong> — 655,957 XAF/€ · CCAP Art. 8</div><div style="font-size:9.5px;color:var(--muted);font-family:var(--font-mono);margin-top:2px">07 oct. 2015 · 10:00 · Système</div></div></div>
+          <div style="display:flex;gap:12px;padding:10px 16px"><div style="width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px"></div><div><div style="font-size:12px;color:var(--ink2)"><strong>Décompte N°07 créé</strong> — Période octobre 2015 initialisée par Jean KAMGA</div><div style="font-size:9.5px;color:var(--muted);font-family:var(--font-mono);margin-top:2px">07 oct. 2015 · 08:00 · Jean KAMGA</div></div></div>
+        </div>
+      </div>
+    </div>
+
+  
+<!-- ══ PAGE : ARCHITECTURE ══ -->
+<div class="page" id="page-archi" style="height:100%;overflow:hidden;">
+<div style="height:100%;overflow-y:auto;padding:24px 28px;">
+
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;">
+    <div>
+      <div class="ac-title">⚙ Architecture technique — Madjanga</div>
+      <div class="ac-sub">Stack · Monorepo · Frontend · Backend · Pipeline calcul · BDD · RBAC · CI/CD · ADR · Roadmap</div>
+    </div>
+    <button class="btn btn-outline" style="font-size:11px;padding:5px 12px;flex-shrink:0;">↓ Exporter PDF</button>
+  </div>
+
+  <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+    <button class="archi-tab active" onclick="archiTab(this,'ac-stack')">Stack</button>
+    <button class="archi-tab" onclick="archiTab(this,'ac-monorepo')">Monorepo</button>
+    <button class="archi-tab" onclick="archiTab(this,'ac-frontend')">Frontend</button>
+    <button class="archi-tab" onclick="archiTab(this,'ac-backend')">Backend</button>
+    <button class="archi-tab" onclick="archiTab(this,'ac-pipeline')">Pipeline calcul</button>
+    <button class="archi-tab" onclick="archiTab(this,'ac-bdd')">Base de données</button>
+    <button class="archi-tab" onclick="archiTab(this,'ac-rbac')">RBAC</button>
+    <button class="archi-tab" onclick="archiTab(this,'ac-cicd')">CI/CD</button>
+    <button class="archi-tab" onclick="archiTab(this,'ac-adr')">ADR</button>
+    <button class="archi-tab" onclick="archiTab(this,'ac-roadmap')">Roadmap</button>
+  </div>
+
+  <!-- ══ STACK ══ -->
+  <div id="ac-stack" class="ac-section">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div>
+        <div class="card-block">
+          <div class="cb-hd cb-blue">🖥 Frontend — React 18 + Vite 5</div>
+          <div class="cb-body">
+            <div class="sr"><span class="sr-t">React 18 + Vite 5</span><span class="sr-d">SPA + PWA · tables interactives terrain</span></div>
+            <div class="sr"><span class="sr-t">shadcn/ui + Radix UI</span><span class="sr-d">Composants accessibles WCAG 2.1 AA</span></div>
+            <div class="sr"><span class="sr-t">Tailwind CSS 3</span><span class="sr-d">Utilitaires CSS, purge en production</span></div>
+            <div class="sr"><span class="sr-t">Zustand</span><span class="sr-d">Store global léger, pas de boilerplate</span></div>
+            <div class="sr"><span class="sr-t">TanStack Query v5</span><span class="sr-d">Cache serveur, optimistic updates</span></div>
+            <div class="sr"><span class="sr-t">TanStack Table v8</span><span class="sr-d">DQE éditable, virtualisation 10k+ lignes</span></div>
+            <div class="sr"><span class="sr-t">React Hook Form+Zod</span><span class="sr-d">Validation typesafe isomorphe</span></div>
+            <div class="sr"><span class="sr-t">React-PDF</span><span class="sr-d">Aperçu PDF temps réel dans navigateur</span></div>
+            <div class="sr"><span class="sr-t">SheetJS</span><span class="sr-d">Export Excel format MINTP</span></div>
+          </div>
+        </div>
+        <div class="card-block" style="margin-top:8px;">
+          <div class="cb-hd cb-green">⚡ Offline PWA</div>
+          <div class="cb-body">
+            <div class="sr"><span class="sr-t">Workbox 7</span><span class="sr-d">Service Worker + stratégies cache par ressource</span></div>
+            <div class="sr"><span class="sr-t">Dexie.js (IndexedDB)</span><span class="sr-d">BDD locale offline, sync bidirectionnel</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card-block">
+          <div class="cb-hd cb-accent">🔧 Backend — Node.js 20 + Hono</div>
+          <div class="cb-body">
+            <div class="sr"><span class="sr-t">Node.js 20 + Hono</span><span class="sr-d">API REST légère, TypeScript natif, edge</span></div>
+            <div class="sr"><span class="sr-t">Drizzle ORM</span><span class="sr-d">Migrations SQL versionnées, GENERATED ALWAYS</span></div>
+            <div class="sr"><span class="sr-t">BullMQ + Redis</span><span class="sr-d">Queue exports PDF/Excel async</span></div>
+            <div class="sr"><span class="sr-t">Puppeteer</span><span class="sr-d">Export PDF officiel reproductible</span></div>
+          </div>
+        </div>
+        <div class="card-block" style="margin-top:8px;">
+          <div class="cb-hd cb-gold">🗄 Infrastructure</div>
+          <div class="cb-body">
+            <div class="sr"><span class="sr-t">PostgreSQL 15 (Supabase)</span><span class="sr-d">BDD + Auth + Storage + Realtime</span></div>
+            <div class="sr"><span class="sr-t">Vercel</span><span class="sr-d">Frontend CDN, deploy preview par PR</span></div>
+            <div class="sr"><span class="sr-t">Railway</span><span class="sr-d">API Node.js + Redis managés</span></div>
+            <div class="sr"><span class="sr-t">GitHub Actions</span><span class="sr-d">CI/CD : lint → test → build → deploy</span></div>
+            <div class="sr"><span class="sr-t">Vitest + Playwright</span><span class="sr-d">Tests unitaires + E2E</span></div>
+          </div>
+        </div>
+        <div class="nb nb-b" style="margin-top:8px;">Budget infra beta : ~<strong>95 $/mois</strong> (~55 000 XAF) · Supabase 25$ + Vercel 20$ + Railway 20$ + Sentry 26$ + GitHub 4$</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MONOREPO ══ -->
+  <div id="ac-monorepo" class="ac-section" style="display:none;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div>
+        <div class="ttl">Racine du monorepo — pnpm + Turborepo</div>
+        <div class="tblk">
+<span class="tl"><span class="td">madjanga/</span></span>
+<span class="tl">├── <span class="td">apps/web/</span><span class="tc">Frontend React PWA</span></span>
+<span class="tl">├── <span class="td">apps/api/</span><span class="tc">Backend Hono Node.js</span></span>
+<span class="tl">├── <span class="td">packages/engine/</span><span class="tc">★ Moteur calcul partagé</span></span>
+<span class="tl">│   ├── <span class="tf">pipeline.ts</span><span class="tc">Orchestrateur C1→C7</span></span>
+<span class="tl">│   ├── <span class="tf">invariants.ts</span><span class="tc">6 assertions runtime</span></span>
+<span class="tl">│   └── <span class="td">layers/</span><span class="tc">c1…c7 (une couche = un fichier)</span></span>
+<span class="tl">├── <span class="td">packages/db/</span><span class="tc">Schéma Drizzle + migrations SQL</span></span>
+<span class="tl">├── <span class="td">packages/types/</span><span class="tc">Types TypeScript partagés</span></span>
+<span class="tl">├── <span class="td">packages/ui/</span><span class="tc">Design system commun</span></span>
+<span class="tl">├── <span class="tf">pnpm-workspace.yaml</span></span>
+<span class="tl">├── <span class="tf">turbo.json</span><span class="tc">Build cache incrémentiel</span></span>
+<span class="tl">└── <span class="tf">tsconfig.base.json</span></span>
+        </div>
+        <div class="ttl" style="margin-top:12px;">Schéma packages/db/</div>
+        <div class="tblk">
+<span class="tl"><span class="td">src/schema/</span></span>
+<span class="tl">├── <span class="tf">marche.ts</span><span class="tc">marche, devise_marche</span></span>
+<span class="tl">├── <span class="tf">bpu.ts</span><span class="tc">prix verrouillés à notification</span></span>
+<span class="tl">├── <span class="tf">decompte.ts</span><span class="tc">decompte + dqe_ligne ★</span></span>
+<span class="tl">├── <span class="tf">paiement.ts</span><span class="tc">paiement_part, avance_decompte</span></span>
+<span class="tl">└── <span class="tf">audit.ts</span><span class="tc">audit_event ★★ append-only</span></span>
+<span class="tl" style="margin-top:4px;"><span class="td">migrations/</span></span>
+<span class="tl">├── <span class="tf">0001_init.sql</span></span>
+<span class="tl">├── <span class="tf">0002_generated_cols.sql</span></span>
+<span class="tl">└── <span class="tf">0003_rls_policies.sql</span></span>
+        </div>
+      </div>
+      <div>
+        <div class="ttl">Scripts pnpm racine</div>
+        <div class="tblk">
+<span class="tl"><span class="tcm">pnpm dev</span><span class="tc">web:5173 + api:3001 en parallèle</span></span>
+<span class="tl"><span class="tcm">pnpm build</span><span class="tc">Tous packages (cache Turborepo)</span></span>
+<span class="tl"><span class="tcm">pnpm test</span><span class="tc">Vitest unitaires</span></span>
+<span class="tl"><span class="tcm">pnpm test:e2e</span><span class="tc">Playwright end-to-end</span></span>
+<span class="tl"><span class="tcm">pnpm type-check</span><span class="tc">TypeScript tous packages</span></span>
+<span class="tl"><span class="tcm">pnpm db:migrate</span><span class="tc">Drizzle migrations BDD</span></span>
+<span class="tl"><span class="tcm">pnpm db:seed</span><span class="tc">Données test (décompte N°7)</span></span>
+<span class="tl"><span class="tcm">pnpm db:studio</span><span class="tc">UI BDD locale</span></span>
+        </div>
+        <div class="ttl" style="margin-top:12px;">Hook usePipelineResult — calcul offline</div>
+        <div class="cblk"><span class="cc">// @madjanga/engine = même code frontend + backend</span>
+<span class="ck">import</span> { runPipeline } <span class="ck">from</span> <span class="cs">"@madjanga/engine"</span>;
+
+<span class="ck">export function</span> <span class="cf">usePipelineResult</span>(id) {
+  <span class="ck">const</span> state = <span class="cf">useDecompteStore</span>(
+    s => s.decomptes[id]
+  );
+  <span class="ck">return</span> <span class="cf">useMemo</span>(
+    () => <span class="cf">runPipeline</span>(state),
+    [state.lignes] <span class="cc">// recalcul si lignes ↑</span>
+  );
+}</div>
+        <div class="nb nb-b" style="margin-top:8px;">★ dqe_ligne : GENERATED ALWAYS (qte_cum, ht_ligne) — cohérence garantie PostgreSQL<br>★★ audit_event : REVOKE DELETE/UPDATE — immuabilité au niveau SQL</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ FRONTEND ══ -->
+  <div id="ac-frontend" class="ac-section" style="display:none;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div>
+        <div class="ttl">Structure apps/web/src/features/</div>
+        <div class="tblk">
+<span class="tl"><span class="td">features/</span></span>
+<span class="tl">├── <span class="td">dashboard/</span><span class="tc">Page accueil directeur</span></span>
+<span class="tl">├── <span class="td">decompte/</span><span class="tc">★ Feature principale</span></span>
+<span class="tl">│   ├── <span class="td">tabs/</span><span class="tc">RecapTab, DQETab, Parts…</span></span>
+<span class="tl">│   ├── <span class="tf">DQETable.tsx</span><span class="tc">Table éditable + recalcul</span></span>
+<span class="tl">│   ├── <span class="tf">BPUPanel.tsx</span><span class="tc">Panneau détail BPU</span></span>
+<span class="tl">│   ├── <span class="tf">WorkflowBar.tsx</span><span class="tc">Barre PREP→LOCK</span></span>
+<span class="tl">│   ├── <span class="tf">MandaterBlock.tsx</span><span class="tc">Récap net à mandater</span></span>
+<span class="tl">│   ├── <span class="tf">useDecompte.ts</span></span>
+<span class="tl">│   ├── <span class="tf">useDQELignes.ts</span></span>
+<span class="tl">│   └── <span class="tf">usePipelineResult.ts</span><span class="tc">★ calcul live</span></span>
+<span class="tl">├── <span class="td">marche/</span><span class="tc">Fiches projets</span></span>
+<span class="tl">├── <span class="td">bpu/</span><span class="tc">Gestion BPU</span></span>
+<span class="tl">├── <span class="td">nouveau-decompte/</span><span class="tc">Wizard 4 étapes</span></span>
+<span class="tl">└── <span class="td">auth/</span></span>
+<span class="tl" style="margin-top:4px;"><span class="td">lib/offline/</span></span>
+<span class="tl">├── <span class="tf">db.ts</span><span class="tc">Instance Dexie (IndexedDB)</span></span>
+<span class="tl">├── <span class="tf">syncQueue.ts</span><span class="tc">File sync au retour réseau</span></span>
+<span class="tl">└── <span class="tf">conflictResolver.ts</span></span>
+        </div>
+      </div>
+      <div>
+        <div class="ttl">Stratégies Workbox offline</div>
+        <table class="mt">
+          <thead><tr><th>Ressource</th><th>Stratégie</th><th>Offline ?</th></tr></thead>
+          <tbody>
+            <tr><td>App shell JS/CSS</td><td>CacheFirst</td><td>✓ Permanent</td></tr>
+            <tr class="alt"><td>API GET /décomptes</td><td>NetworkFirst</td><td>✓ Cache 1h</td></tr>
+            <tr><td>POST/PATCH mutations</td><td>BackgroundSync</td><td>✓ IndexedDB queue</td></tr>
+            <tr class="alt"><td>Images & icônes</td><td>CacheFirst</td><td>✓ Permanent</td></tr>
+            <tr><td>Fonts</td><td>StaleWhileRevalidate</td><td>✓ Long terme</td></tr>
+          </tbody>
+        </table>
+        <div class="ttl" style="margin-top:12px;">DQETable.tsx — Composant clé</div>
+        <div class="cblk"><span class="ck">function</span> <span class="cf">DQETable</span>({ decompteId }) {
+  <span class="ck">const</span> { lignes, updateQteMois }
+    = <span class="cf">useDQELignes</span>(decompteId);
+  <span class="ck">const</span> result
+    = <span class="cf">usePipelineResult</span>(decompteId);
+  <span class="cc">// recalcul live offline via @madjanga/engine</span>
+  <span class="ck">return</span> (
+    &lt;<span class="ct">div</span> className="flex gap-4"&gt;
+      &lt;<span class="ct">DataTable</span> table={table} /&gt;
+      &lt;<span class="ct">BPUPanel</span> /&gt;
+      &lt;<span class="ct">MandaterBlock</span> result={result} /&gt;
+    &lt;/<span class="ct">div</span>&gt;
+  );
+}</div>
+        <div class="nb nb-g" style="margin-top:8px;">Le moteur tourne dans le navigateur — aucun réseau requis pour recalculer une DQE sur le terrain camerounais.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ BACKEND ══ -->
+  <div id="ac-backend" class="ac-section" style="display:none;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div>
+        <div class="ttl">Structure apps/api/src/</div>
+        <div class="tblk">
+<span class="tl"><span class="td">routes/</span><span class="tc">Modules verticaux par domaine</span></span>
+<span class="tl">├── <span class="tf">marches.ts</span></span>
+<span class="tl">├── <span class="tf">decomptes.ts</span><span class="tc">CRUD + transitions statut</span></span>
+<span class="tl">├── <span class="tf">dqe.ts</span><span class="tc">★ PATCH qté + recalcul engine</span></span>
+<span class="tl">├── <span class="tf">bpu.ts</span><span class="tc">GET/POST + verrouillage</span></span>
+<span class="tl">├── <span class="tf">paiements.ts</span></span>
+<span class="tl">├── <span class="tf">pieces.ts</span><span class="tc">Upload Supabase Storage</span></span>
+<span class="tl">├── <span class="tf">audit.ts</span><span class="tc">Lecture seule uniquement</span></span>
+<span class="tl">└── <span class="tf">exports.ts</span><span class="tc">POST → job BullMQ async</span></span>
+<span class="tl" style="margin-top:4px;"><span class="td">services/</span></span>
+<span class="tl">├── <span class="tf">calcul.service.ts</span><span class="tc">Appelle @madjanga/engine</span></span>
+<span class="tl">├── <span class="tf">export.service.ts</span><span class="tc">Puppeteer PDF + SheetJS Excel</span></span>
+<span class="tl">└── <span class="tf">audit.service.ts</span><span class="tc">Écriture append-only</span></span>
+<span class="tl" style="margin-top:4px;"><span class="td">middleware/</span></span>
+<span class="tl">├── <span class="tf">auth.ts</span><span class="tc">JWT Supabase</span></span>
+<span class="tl">├── <span class="tf">rbac.ts</span><span class="tc">Contrôle rôles par route</span></span>
+<span class="tl">└── <span class="tf">audit.ts</span><span class="tc">Intercepteur → audit_event auto</span></span>
+<span class="tl" style="margin-top:4px;"><span class="td">jobs/</span><span class="tc">Workers BullMQ</span></span>
+<span class="tl">├── <span class="tf">pdf.worker.ts</span></span>
+<span class="tl">└── <span class="tf">excel.worker.ts</span></span>
+        </div>
+      </div>
+      <div>
+        <div class="ttl">Route PATCH /dqe/:ligneId</div>
+        <div class="cblk">dqeRouter.<span class="cf">patch</span>(<span class="cs">"/:ligneId"</span>,
+  authMiddleware,
+  <span class="cf">rbac</span>(<span class="cs">"CONDUCTEUR"</span>),
+  <span class="ck">async</span> (c) => {
+    <span class="ck">const</span> { qteMois } =
+      <span class="ck">await</span> c.req.<span class="cf">json</span>();
+    <span class="cc">// 1. Persister quantité saisie</span>
+    <span class="ck">await</span> db.<span class="cf">update</span>(dqeLigne)
+      .<span class="cf">set</span>({ qteMois });
+    <span class="cc">// 2. Recalcul via @madjanga/engine</span>
+    <span class="ck">const</span> ctx =
+      <span class="ck">await</span> <span class="cf">getContext</span>(ligneId);
+    <span class="ck">const</span> result =
+      <span class="cf">runPipeline</span>(ctx);
+    <span class="cc">// 3. Persister agrégats</span>
+    <span class="ck">await</span> <span class="cf">persistResult</span>(id, result);
+    <span class="ck">return</span> c.<span class="cf">json</span>({ result });
+});</div>
+        <div class="ttl" style="margin-top:12px;">Endpoints principaux</div>
+        <table class="mt">
+          <thead><tr><th>Route</th><th>Rôle requis</th></tr></thead>
+          <tbody>
+            <tr><td><code>GET /marches</code></td><td>Tout rôle</td></tr>
+            <tr class="alt"><td><code>POST /decomptes</code></td><td>DIRECTEUR+</td></tr>
+            <tr><td><code>PATCH /decomptes/:id/statut</code></td><td>Selon cible</td></tr>
+            <tr class="alt"><td><code>PATCH /dqe/:ligneId</code></td><td>CONDUCTEUR+</td></tr>
+            <tr><td><code>POST /exports/pdf</code></td><td>DIRECTEUR+</td></tr>
+            <tr class="alt"><td><code>POST /bpu/:id/lock</code></td><td>ADMIN</td></tr>
+            <tr><td><code>GET /audit</code></td><td>DIRECTEUR+</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PIPELINE ══ -->
+  <div id="ac-pipeline" class="ac-section" style="display:none;">
+    <div class="ac-title" style="font-size:13px;margin-bottom:12px;">7 couches séquentielles — même code frontend (offline) et backend (validation)</div>
+    <div style="display:flex;flex-direction:column;gap:0;max-width:680px;">
+      <div class="ps" style="--pc:var(--blue)"><div class="pn">C1</div><div class="pb"><div class="pt">Saisie quantités</div><div class="pd">Validation <code>qte_cum ≤ qte_marche</code> · Alerte dépassement + by-pass tracé obligatoire</div><div class="pio"><span class="pi">↳ qte_mois (saisie opérateur)</span><span class="po">DQE validée ligne par ligne</span></div></div></div>
+      <div class="parr">↓</div>
+      <div class="ps" style="--pc:var(--blue)"><div class="pn">C2</div><div class="pb"><div class="pt">Matching BPU</div><div class="pd">Clé exacte num_article ↔ BPU · fuzzy ≥ 95% · Prix unitaire verrouillé après validation</div><div class="pio"><span class="pi">↳ num_bpu, DQE</span><span class="po">prix_u verrouillé par ligne</span></div></div></div>
+      <div class="parr">↓</div>
+      <div class="ps" style="--pc:var(--green)"><div class="pn">C3</div><div class="pb"><div class="pt">Calcul HT ligne</div><div class="pd"><code>ht_ligne = ROUND(qte_mois × prix_u)</code> · <code>ht_cum = ht_cum_m1 + ht_ligne</code></div><div class="pio"><span class="pi">↳ qte_mois, prix_u</span><span class="po">ht_ligne, ht_cum, pct_avt</span></div></div></div>
+      <div class="parr">↓</div>
+      <div class="ps" style="--pc:var(--green)"><div class="pn">C4</div><div class="pb"><div class="pt">Agrégation HT décompte</div><div class="pd"><code>ht_total = Σ ht_ligne(i)</code> · <code>pct_global = ht_cum_total / ht_marche × 100</code></div><div class="pio"><span class="pi">↳ toutes lignes DQE</span><span class="po">ht_total_mois, pct_avt_global</span></div></div></div>
+      <div class="parr">↓</div>
+      <div class="ps" style="--pc:var(--gold)"><div class="pn">C5</div><div class="pb"><div class="pt">Répartition multi-devises</div><div class="pd">Taux 655,957 XAF/€ verrouillé · 53% EUR / 47% CFA · <code>part_eur = ht × pct_eur</code></div><div class="pio"><span class="pi">↳ ht_total, pct_eur, taux_xaf</span><span class="po">part_eur 64 301,71 € · part_cfa 37 404 156 ₣</span></div></div></div>
+      <div class="parr">↓</div>
+      <div class="ps" style="--pc:var(--accent)"><div class="pn">C6</div><div class="pb"><div class="pt">Retenues fiscales</div><div class="pd">TVA 19,25% · AIR 1,1% · <strong>air_eur = 0</strong> contractuellement · air_cfa = air_total</div><div class="pio"><span class="pi">↳ ht_total, taux</span><span class="po">tva 15 319 787 ₣ · air 875 416 ₣</span></div></div></div>
+      <div class="parr">↓</div>
+      <div class="ps" style="--pc:var(--muted)"><div class="pn">C7</div><div class="pb"><div class="pt">Avance démarrage</div><div class="pd"><code>A10 = A3 − Σ remboursements_cumulés</code> · A10 ≥ 0 · Mainlevée caution si A10 ≈ 0</div><div class="pio"><span class="pi">↳ A3 accordée, cumul remb.</span><span class="po">A8 remb. ce mois, A10 solde (≈ 0 N°7)</span></div></div></div>
+    </div>
+    <div style="margin-top:14px;font-family:var(--fd);font-size:12px;font-weight:700;color:var(--ink);margin-bottom:8px;">6 invariants — assertInvariants() à chaque calcul</div>
+    <div class="card" style="padding:10px 16px;display:flex;flex-direction:column;gap:4px;">
+      <div class="inv">✓ <code>part_eur_xaf + part_cfa + tva + air = ttc_total</code></div>
+      <div class="inv">✓ <code>air_eur + air_cfa = air_total</code> &nbsp;(air_eur = 0 contractuellement)</div>
+      <div class="inv">✓ <code>qte_cum ≤ qte_marche</code> &nbsp;pour toute ligne DQE</div>
+      <div class="inv">✓ Taux de change immuable après verrouillage du décompte</div>
+      <div class="inv">✓ <code>A10 ≥ 0</code> &nbsp;— remboursement ≤ avance accordée A3</div>
+      <div class="inv">✓ <code>ht_cum = ht_cum_m1 + ht_mois</code> &nbsp;— continuité inter-cycles</div>
+    </div>
+  </div>
+
+  <!-- ══ BDD ══ -->
+  <div id="ac-bdd" class="ac-section" style="display:none;">
+    <div class="ac-title" style="font-size:13px;margin-bottom:12px;">11 tables · 5 domaines · UUID v4 · TIMESTAMPTZ · GENERATED ALWAYS · RLS</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:14px;">
+      <div class="dbd" style="border-color:var(--blue)"><div class="dbt" style="color:var(--blue)">Référentiel</div><div class="dbtb">marche</div><div class="dbtb">devise_marche</div><div class="dbtb">entreprise</div><div class="dbtb">membre_groupement</div></div>
+      <div class="dbd" style="border-color:var(--green)"><div class="dbt" style="color:var(--green)">BPU</div><div class="dbtb">bpu</div></div>
+      <div class="dbd" style="border-color:var(--accent)"><div class="dbt" style="color:var(--accent)">Décomptes</div><div class="dbtb">decompte</div><div class="dbtb">dqe_ligne ★</div></div>
+      <div class="dbd" style="border-color:var(--gold)"><div class="dbt" style="color:var(--gold)">Paiements</div><div class="dbtb">paiement_part</div><div class="dbtb">avance_decompte</div></div>
+      <div class="dbd" style="border-color:var(--muted)"><div class="dbt" style="color:var(--muted)">Contrôle</div><div class="dbtb">piece_justif.</div><div class="dbtb">audit_event ★★</div><div class="dbtb">users</div><div class="dbtb">permission_marche</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div>
+        <div class="dbhd" style="background:var(--blue)">dqe_ligne — table cœur</div>
+        <table class="dbs"><thead><tr><th>Colonne</th><th>Type</th><th>Note</th></tr></thead><tbody>
+          <tr><td><code>id</code></td><td>UUID</td><td>PK</td></tr>
+          <tr class="alt"><td><code>decompte_id</code></td><td>UUID</td><td>FK → decompte</td></tr>
+          <tr><td><code>qte_marche</code></td><td>NUMERIC(14,3)</td><td>Contractuelle</td></tr>
+          <tr class="alt"><td><code>qte_m1</code></td><td>NUMERIC(14,3)</td><td>Cumul M−1</td></tr>
+          <tr><td><code>qte_mois</code></td><td>NUMERIC(14,3)</td><td>Saisie opérateur</td></tr>
+          <tr class="alt" style="background:rgba(26,74,140,.06)"><td><code>qte_cum</code></td><td>NUMERIC(14,3)</td><td><span style="color:var(--blue);font-weight:700">GENERATED</span></td></tr>
+          <tr style="background:rgba(26,74,140,.06)"><td><code>ht_ligne</code></td><td>BIGINT</td><td><span style="color:var(--blue);font-weight:700">GENERATED</span></td></tr>
+          <tr class="alt"><td><code>flag_arbitrage</code></td><td>BOOLEAN</td><td>Contesté</td></tr>
+          <tr><td><code>note_arbitrage</code></td><td>TEXT</td><td>Si flag=TRUE</td></tr>
+        </tbody></table>
+      </div>
+      <div>
+        <div class="ttl">DDL SQL — extraits essentiels</div>
+        <div class="cblk" style="font-size:10px;"><span class="cc">-- Colonnes calculées par PostgreSQL</span>
+ALTER TABLE dqe_ligne
+  ADD COLUMN qte_cum NUMERIC(14,3)
+    GENERATED ALWAYS AS
+      (qte_m1 + qte_mois) STORED,
+  ADD COLUMN ht_ligne BIGINT
+    GENERATED ALWAYS AS
+      (ROUND(qte_mois * prix_u_xaf))
+      STORED;
+
+<span class="cc">-- audit_event immuable</span>
+REVOKE DELETE, UPDATE
+  ON audit_event FROM ALL;
+
+<span class="cc">-- Index performances</span>
+CREATE INDEX idx_decompte_marche
+  ON decompte(marche_id, numero DESC);
+CREATE INDEX idx_dqe_decompte
+  ON dqe_ligne(decompte_id);
+CREATE INDEX idx_audit_entity
+  ON audit_event(entity_type,
+    entity_id, created_at DESC);</div>
+        <div class="nb nb-b" style="margin-top:8px;">★ GENERATED ALWAYS : qte_cum et ht_ligne ne peuvent jamais être désynchronisés — cohérence garantie par le SGBD, pas l'application<br>★★ REVOKE = immuabilité SQL incontournable même par un bug</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RBAC ══ -->
+  <div id="ac-rbac" class="ac-section" style="display:none;">
+    <div class="ac-title" style="font-size:13px;margin-bottom:12px;">Double protection : middleware Hono (HTTP 403) + Row Level Security PostgreSQL</div>
+    <table class="mt" style="margin-bottom:14px;">
+      <thead><tr><th>Rôle</th><th>Code</th><th>Périmètre</th><th>Actions clés</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Administrateur</strong></td><td><code>ADMIN</code></td><td>Plateforme</td><td>Créer marchés, gérer users, verrouiller BPU</td></tr>
+        <tr class="alt"><td><strong>Directeur Projet</strong></td><td><code>DIRECTEUR</code></td><td>Ses marchés</td><td>GO/NO-GO/REVIEW, tout voir, exporter</td></tr>
+        <tr><td><strong>Ingénieur Marché</strong></td><td><code>INGENIEUR</code></td><td>Assignés</td><td>Vérification, passer en ADOPT, commentaires</td></tr>
+        <tr class="alt"><td><strong>Conducteur</strong></td><td><code>CONDUCTEUR</code></td><td>Assignés</td><td>Saisir quantités DQE, uploader pièces</td></tr>
+        <tr><td><strong>Comptable</strong></td><td><code>COMPTABLE</code></td><td>Ses marchés</td><td>Voir paiements, exporter, lecture seule DQE</td></tr>
+        <tr class="alt"><td><strong>MOA / MOE</strong></td><td><code>MOA/MOE</code></td><td>Assignés</td><td>Lecture seule, avis non-bloquant</td></tr>
+        <tr><td><strong>Lecture seule</strong></td><td><code>READONLY</code></td><td>Explicite</td><td>Consultation uniquement</td></tr>
+      </tbody>
+    </table>
+    <div class="ttl">RLS PostgreSQL — politique UPDATE sur dqe_ligne</div>
+    <div class="cblk"><span class="cc">-- UPDATE : CONDUCTEUR+ seulement</span>
+CREATE POLICY dqe_update ON dqe_ligne
+  FOR UPDATE TO app_role USING (
+    EXISTS (
+      SELECT 1 FROM permission_marche pm
+      JOIN decompte d
+        ON d.marche_id = pm.marche_id
+      WHERE d.id = dqe_ligne.decompte_id
+        AND pm.user_id = <span class="cf">auth.uid</span>()
+        AND pm.role IN (
+          <span class="cs">'CONDUCTEUR'</span>, <span class="cs">'INGENIEUR'</span>,
+          <span class="cs">'DIRECTEUR'</span>,  <span class="cs">'ADMIN'</span>
+        )
+    )
+  );</div>
+  </div>
+
+  <!-- ══ CI/CD ══ -->
+  <div id="ac-cicd" class="ac-section" style="display:none;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div>
+        <div class="ttl">3 workflows GitHub Actions</div>
+        <div class="tblk">
+<span class="tl"><span class="td">.github/workflows/</span></span>
+<span class="tl">├── <span class="tf">ci.yml</span><span class="tc">Sur chaque PR</span></span>
+<span class="tl">├── <span class="tf">deploy-staging.yml</span><span class="tc">Push main → staging auto</span></span>
+<span class="tl">└── <span class="tf">deploy-prod.yml</span><span class="tc">Tag v* → prod (approbation manuelle)</span></span>
+        </div>
+        <div class="ttl" style="margin-top:12px;">Variables d'environnement</div>
+        <div class="cblk" style="font-size:9.5px;"><span class="cc"># apps/web/.env.local</span>
+VITE_SUPABASE_URL=https://xxx.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGc...
+VITE_API_URL=http://localhost:3001
+
+<span class="cc"># apps/api/.env</span>
+DATABASE_URL=postgresql://...supabase.co
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGc...
+REDIS_URL=redis://localhost:6379
+PUPPETEER_EXEC=/usr/bin/chromium</div>
+      </div>
+      <div>
+        <div class="ttl">Pipeline CI — étapes sur chaque PR</div>
+        <table class="mt">
+          <thead><tr><th>Étape</th><th>Durée est.</th></tr></thead>
+          <tbody>
+            <tr><td><code>pnpm type-check</code></td><td>~30s</td></tr>
+            <tr class="alt"><td><code>pnpm lint</code></td><td>~20s</td></tr>
+            <tr><td><code>pnpm test:unit</code> (Vitest)</td><td>~45s</td></tr>
+            <tr class="alt"><td><code>engine test</code> (données N°7)</td><td>~15s</td></tr>
+            <tr><td><code>build frontend</code></td><td>~90s</td></tr>
+            <tr class="alt"><td><code>build api</code></td><td>~30s</td></tr>
+            <tr><td><code>playwright e2e</code></td><td>~3 min</td></tr>
+            <tr class="alt"><td><code>pnpm audit</code> sécurité</td><td>~10s</td></tr>
+          </tbody>
+        </table>
+        <div class="nb nb-g" style="margin-top:8px;">Turborepo cache : si @madjanga/engine n'a pas changé, ses tests ne se réexécutent pas → gain typique −40% temps CI</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ADR ══ -->
+  <div id="ac-adr" class="ac-section" style="display:none;">
+    <div class="ac-title" style="font-size:13px;margin-bottom:12px;">10 décisions d'architecture documentées — contexte · alternatives rejetées · raison</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div class="adr"><div class="adrl">ADR-01</div><div class="adrb"><div class="adrd">Monorepo pnpm workspaces + Turborepo</div><div class="adrw">Partage du moteur de calcul sans npm privé. Builds incrémentiels cachés. Un seul dépôt Git.</div><div class="adra">Rejeté : multi-repos séparés</div></div></div>
+      <div class="adr"><div class="adrl">ADR-02</div><div class="adrb"><div class="adrd">Moteur calcul en package partagé @madjanga/engine</div><div class="adrw">Doit fonctionner sans connexion sur le terrain camerounais. Même code = zéro désynchronisation frontend/backend.</div><div class="adra">Rejeté : calcul API uniquement</div></div></div>
+      <div class="adr"><div class="adrl">ADR-03</div><div class="adrb"><div class="adrd">Hono plutôt qu'Express / NestJS</div><div class="adrw">Léger (~12KB), TypeScript natif, edge-compatible. Express trop vieux. NestJS trop lourd pour une PME.</div><div class="adra">Rejeté : Express, NestJS, Fastify</div></div></div>
+      <div class="adr"><div class="adrl">ADR-04</div><div class="adrb"><div class="adrd">Drizzle ORM plutôt que Prisma</div><div class="adrw">Migrations SQL lisibles et versionnées. Support natif GENERATED ALWAYS. Requêtes typesafe proches du SQL brut.</div><div class="adra">Rejeté : Prisma, TypeORM</div></div></div>
+      <div class="adr"><div class="adrl">ADR-05</div><div class="adrb"><div class="adrd">Supabase plutôt qu'AWS RDS + Cognito</div><div class="adrw">PostgreSQL + Auth + Storage + Realtime en 1 service. ~25$/mois vs ~150$/mois AWS. SDK JS natif.</div><div class="adra">Rejeté : AWS RDS, Firebase</div></div></div>
+      <div class="adr"><div class="adrl">ADR-06</div><div class="adrb"><div class="adrd">Zustand plutôt que Redux Toolkit</div><div class="adrw">API simple, 1KB bundle, pas de slice/action/reducer. État DQE ligne par ligne sans re-render global.</div><div class="adra">Rejeté : Redux Toolkit, Context API</div></div></div>
+      <div class="adr"><div class="adrl">ADR-07</div><div class="adrb"><div class="adrd">TanStack Table v8 plutôt qu'AG Grid</div><div class="adrw">Open source MIT, virtualisation 10k+ lignes, édition in-place parfaite. AG Grid = licence commerciale coûteuse.</div><div class="adra">Rejeté : AG Grid Community</div></div></div>
+      <div class="adr"><div class="adrl">ADR-08</div><div class="adrb"><div class="adrd">Colonnes GENERATED ALWAYS PostgreSQL</div><div class="adrw">qte_cum et ht_ligne ne peuvent jamais être désynchronisés. Cohérence garantie SGBD, pas le code applicatif.</div><div class="adra">Rejeté : calcul applicatif uniquement</div></div></div>
+      <div class="adr"><div class="adrl">ADR-09</div><div class="adrb"><div class="adrd">audit_event append-only via REVOKE SQL</div><div class="adrw">Exigence contractuelle CCAP. REVOKE DELETE/UPDATE = impossible à contourner même par un bug applicatif.</div><div class="adra">Rejeté : soft-delete, log externe</div></div></div>
+      <div class="adr"><div class="adrl">ADR-10</div><div class="adrb"><div class="adrd">Workbox + Dexie.js pour l'offline</div><div class="adrw">Standards Google Service Workers + API Promise propre sur IndexedDB. Matures, bien documentés, stratégies prêtes à l'emploi.</div><div class="adra">Rejeté : SW custom, PouchDB</div></div></div>
+    </div>
+  </div>
+
+  <!-- ══ ROADMAP ══ -->
+  <div id="ac-roadmap" class="ac-section" style="display:none;">
+    <div class="ac-title" style="font-size:13px;margin-bottom:12px;">16 semaines · 1 dev fullstack senior + 1 dev frontend mid + 1 DevOps/QA</div>
+    <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:18px;">
+      <div class="rdr rdr-done"><div class="rdp">Phase 0 — Setup <span class="rdd">1 sem.</span></div><div class="rdb">Monorepo, CI/CD, BDD Supabase, schéma Drizzle initial, seeds décompte N°7</div></div>
+      <div class="rdr rdr-done"><div class="rdp">Phase 1 — Moteur calcul <span class="rdd">2 sem.</span></div><div class="rdb">@madjanga/engine complet C1→C7 + tests unitaires avec données réelles N°7</div></div>
+      <div class="rdr rdr-cur"><div class="rdp">Phase 2 — Backend core <span class="rdd">2 sem.</span></div><div class="rdb">API REST routes principales, RBAC + RLS PostgreSQL, audit trail append-only</div></div>
+      <div class="rdr"><div class="rdp">Phase 3 — Frontend MVP <span class="rdd">3 sem.</span></div><div class="rdb">Shell + sidebar, DQE éditable (TanStack Table), recalcul live, tous les onglets</div></div>
+      <div class="rdr"><div class="rdp">Phase 4 — Offline PWA <span class="rdd">2 sem.</span></div><div class="rdb">Service Worker Workbox, sync IndexedDB (Dexie), résolution conflits, BackgroundSync</div></div>
+      <div class="rdr"><div class="rdp">Phase 5 — Exports <span class="rdd">1 sem.</span></div><div class="rdb">PDF officiel reproductible (Puppeteer), Excel MINTP (SheetJS), aperçu React-PDF</div></div>
+      <div class="rdr"><div class="rdp">Phase 6 — Pièces justif. <span class="rdd">1 sem.</span></div><div class="rdb">Upload Supabase Storage, checklist 9 pièces, by-pass tracé, score automatique</div></div>
+      <div class="rdr"><div class="rdp">Phase 7 — Wizard décompte <span class="rdd">1 sem.</span></div><div class="rdb">Création 4 étapes, DQE initialisée depuis cumuls M−1, paramètres devises</div></div>
+      <div class="rdr"><div class="rdp">Phase 8 — Beta terrain <span class="rdd">2 sem.</span></div><div class="rdb">Tests utilisateurs 3 PME BTP Cameroun, Playwright E2E, Sentry error tracking</div></div>
+      <div class="rdr"><div class="rdp">Phase 9 — Production <span class="rdd">1 sem.</span></div><div class="rdb">Deploy prod Vercel + Railway, SLA 99,5%, documentation utilisateur</div></div>
+    </div>
+    <div style="font-family:var(--fd);font-size:12px;font-weight:700;color:var(--ink);margin-bottom:8px;">Budget infrastructure mensuel (beta)</div>
+    <table class="mt">
+      <thead><tr><th>Service</th><th>Plan</th><th>Coût/mois</th><th>Inclut</th></tr></thead>
+      <tbody>
+        <tr><td>Supabase</td><td>Pro</td><td><strong>25 $</strong></td><td>PostgreSQL 8GB + Auth + Storage 100GB</td></tr>
+        <tr class="alt"><td>Vercel</td><td>Pro</td><td><strong>20 $</strong></td><td>Frontend CDN + preview deploys par PR</td></tr>
+        <tr><td>Railway</td><td>Starter</td><td><strong>20 $</strong></td><td>API Node.js + Redis managés</td></tr>
+        <tr class="alt"><td>Sentry</td><td>Team</td><td><strong>26 $</strong></td><td>Error tracking + performance monitoring</td></tr>
+        <tr><td>GitHub</td><td>Team</td><td><strong>4 $</strong></td><td>CI/CD Actions 2000 min/mois</td></tr>
+        <tr class="alt" style="font-weight:700"><td>Total beta</td><td>—</td><td><strong style="color:var(--green)">~95 $/mois</strong></td><td>~55 000 XAF · viable dès 10 clients pilotes</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- /scroll -->
+</div><!-- /page-archi --><!-- /pg-archi -->
+
+  
+  </div><!-- /pages -->
+</div><!-- /content-zone -->
+</div><!-- /shell -->
+
+<script>
+
+
+function switchPage(id, clickedEl) {
+  // pages
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  var pg = document.getElementById('page-' + id);
+  if (pg) pg.classList.add('active');
+  // tabs
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+  if (clickedEl) {
+    if (clickedEl.classList.contains('tab')) clickedEl.classList.add('active');
+    if (clickedEl.classList.contains('nav-item')) clickedEl.classList.add('active');
+  }
+  // sync both tab-bar and sidebar
+  document.querySelectorAll('[data-page="'+id+'"]').forEach(function(el){
+    el.classList.add('active');
+  });
+}
+
+
+// ── TAB SWITCHING (simple highlight only) ──────────────────
+// switchTab removed — replaced by switchPage
+
+// ── BPU DATA ───────────────────────────────────────────────
+var BPU_DATA = {
+  '1.00':   { num:'1.00',   fam:'Fam. 000 — Installations Générales', label:'Installation de Chantier', unite:'Forfait (FT)', prix:'696 890 000 ₣', qte:'1 FT', details:'Mobilisation des équipes, installation base vie, électricité provisoire, signalisation de chantier, clôtures, gardiennage 30 mois.', devise:'53% Part Euro · 47% Part CFA', ref:'CCAP Art. 5 · DQE 1.00' },
+  '2.00':   { num:'2.00',   fam:'Fam. 000 — Installations Générales', label:'Laboratoire de Chantier', unite:'Forfait (FT)', prix:'45 000 000 ₣', qte:'1 FT', details:"Laboratoire géotechnique agréé : contrôle granulats, bétons, enrobés, remblais. Rapport mensuel signé ingénieur certifié.", devise:'100% Part CFA', ref:'CCAP Art. 6 · CCTG Géo' },
+  '3.00':   { num:'3.00',   fam:'Fam. 000 — Installations Générales', label:"Études d'Exécution", unite:'Forfait (FT)', prix:'32 500 000 ₣', qte:'1 FT', details:"Plans d'exécution béton armé, VRD, signalisation. Validation par bureau de contrôle agréé MINTP. Révision sur demande MOE.", devise:'53% Part Euro · 47% Part CFA', ref:'CCAP Art. 7 · CCTG Études' },
+  '101.00': { num:'101.00', fam:'Fam. 100 — Dégagement des emprises', label:'Nettoyage terrain / débroussaillage', unite:'m²', prix:'820 ₣ / m²', qte:'235 000 m²', details:'Fauchage, débroussaillage, abattage arbres D < 30 cm. Évacuation en décharge agréée. Compris : chargement + transport < 5 km.', devise:'100% Part CFA', ref:'CCAP Art. 12 · DQE 101.00' },
+  '105.00': { num:'105.00', fam:'Fam. 100 — Dégagement des emprises', label:'Démolition de béton armé', unite:'m³', prix:'62 150 ₣ / m³', qte:'420 m³', details:"Démolition au brise-roche hydraulique. Tri des déblais et ferrailles. Évacuation en décharge agréée. Possibilité de recyclage des granulats.", note:'⚠ ARBITRAGE REQUIS — 12,87 m³ saisis ce mois. Note justificative manquante. Confirmer avec conducteur travaux avant validation GO.', devise:'100% Part CFA', ref:'CCAP Art. 12 · DQE 105.00' },
+  '109.08': { num:'109.08', fam:'Fam. 100 — Dégagement des emprises', label:'Dépose buse métal D800', unite:'ml', prix:'111 424 ₣ / ml', qte:'255 ml', details:'Dépose soigneuse buses D800 mm. Curage amont/aval. Évacuation hors site. Remblaiement tranchée après dépose. Blindage si nécessaire.', devise:'100% Part CFA', ref:'CCAP Art. 14 · DQE 109.08' },
+  '202.00': { num:'202.00', fam:'Fam. 200 — Terrassements', label:'Décapage terre végétale', unite:'m²', prix:'1 250 ₣ / m²', qte:'27 500 m²', details:"Décapage e = 20 cm terre végétale. Stockage en cordon pour réutilisation végétalisation. Chargement + mise en dépôt provisoire sur site.", devise:'100% Part CFA', ref:'CCAP Art. 15 · DQE 202.00' },
+  '203.00': { num:'203.00', fam:'Fam. 200 — Terrassements', label:'Déblais ordinaires mis en dépôt', unite:'m³', prix:'3 850 ₣ / m³', qte:'105 200 m³', details:'Déblais toutes natures hors rocher. Chargement + transport en dépôt définitif agréé < 10 km. Régalage et compactage en dépôt.', devise:'100% Part CFA', ref:'CCAP Art. 16 · DQE 203.00' },
+  '301.00': { num:'301.00', fam:'Fam. 300 — Chaussées', label:'Couche de fondation GNT 0/20', unite:'m³', prix:'18 700 ₣ / m³', qte:'59 100 m³', details:'Grave non traitée 0/20 · CBR ≥ 80 · épaisseur compactée 20 cm · OPM ≥ 95% · arrosage + compactage par couches de 20 cm max.', devise:'53% Part Euro · 47% Part CFA', ref:'CCAP Art. 20 · CCTG Chaussées · DQE 301.00' },
+  '304.00': { num:'304.00', fam:'Fam. 300 — Chaussées', label:"Couche d'imprégnation", unite:'m²', prix:'920 ₣ / m²', qte:'998 233 m²', details:"Enduit d'imprégnation Cut-back 0/1 · 0,8 kg/m² · sur couche de base compactée et réceptionnée. Application par rampe à liants.", devise:'40% Part Euro · 60% Part CFA', ref:'CCAP Art. 21 · CCTG Enrobés · DQE 304.00' },
+  '305.00': { num:'305.00', fam:'Fam. 300 — Chaussées', label:"Couche d'accrochage", unite:'m²', prix:'680 ₣ / m²', qte:'1 022 096 m²', details:"Émulsion cationique ECR69 · 0,3 kg/m² · application avant revêtement bitumineux sur couche de base ou ancienne chaussée.", devise:'40% Part Euro · 60% Part CFA', ref:'CCAP Art. 21 · CCTG Enrobés · DQE 305.00' }
+};
+
+function showBPU(num) {
+  var d = BPU_DATA[num];
+  // Highlight row
+  document.querySelectorAll('.sit-table tbody tr').forEach(function(r){ r.classList.remove('row-selected'); });
+  var sel = document.querySelector('[data-bpu="' + num + '"]');
+  if (sel) sel.classList.add('row-selected');
+  var panel = document.getElementById('bpu-panel');
+  if (!panel) return;
+  if (!d) {
+    panel.innerHTML = '<div style="font-size:9px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.6px;margin-bottom:6px">Extrait BPU</div><div class="rp-bpu"><div class="bpu-placeholder"><span class="ph-icon">📋</span>BPU non disponible</div></div>';
+    return;
+  }
+  var noteHtml = d.note ? '<div class="bpu-note">' + d.note + '</div>' : '';
+  panel.innerHTML =
+    '<div style="font-size:9px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.6px;margin-bottom:6px">Extrait BPU — sélection</div>' +
+    '<div class="rp-bpu anim">' +
+      '<div class="bpu-head">' +
+        '<div class="bpu-num">N° ' + d.num + ' &nbsp;·&nbsp; ' + d.fam + '</div>' +
+        '<button class="bpu-close" onclick="closeBPU()">✕</button>' +
+      '</div>' +
+      '<div class="bpu-body">' +
+        '<div class="bpu-label">' + d.label + '</div>' +
+        '<div class="bpu-row"><span class="bpu-k">Prix unitaire BPU</span><span class="bpu-v big">' + d.prix + '</span></div>' +
+        '<div class="bpu-row"><span class="bpu-k">Unité</span><span class="bpu-v">' + d.unite + '</span></div>' +
+        '<div class="bpu-row"><span class="bpu-k">Quantité marché</span><span class="bpu-v">' + d.qte + '</span></div>' +
+        '<div class="bpu-row" style="border:none"><span class="bpu-k">Devise</span><span class="bpu-v">' + d.devise + '</span></div>' +
+        '<div class="bpu-desc"><span class="bpu-k">Description technique</span><p>' + d.details + '</p></div>' +
+        noteHtml +
+        '<div class="bpu-ref">Réf. contractuelle : ' + d.ref + '</div>' +
+      '</div>' +
+    '</div>';
+}
+
+function closeBPU() {
+  document.querySelectorAll('.sit-table tbody tr').forEach(function(r){ r.classList.remove('row-selected'); });
+  var panel = document.getElementById('bpu-panel');
+  if (panel) panel.innerHTML =
+    '<div style="font-size:9px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.6px;margin-bottom:6px">Extrait BPU</div>' +
+    '<div class="rp-bpu"><div class="bpu-placeholder"><span class="ph-icon">📋</span>Cliquer une ligne<br>de la DQE pour afficher<br>l\'extrait BPU correspondant</div></div>';
+}
+
+
+function archiTab(el, sectionId) {
+  document.querySelectorAll('.archi-tab').forEach(function(t){
+    t.classList.remove('active');
+    t.style.background = 'var(--surface)';
+    t.style.color = 'var(--ink2)';
+    t.style.borderColor = 'var(--border2)';
+  });
+  el.classList.add('active');
+  el.style.background = 'var(--blue)';
+  el.style.color = '#fff';
+  el.style.borderColor = 'var(--blue)';
+  document.querySelectorAll('.ac-section').forEach(function(s){ s.style.display = 'none'; });
+  var sec = document.getElementById(sectionId);
+  if (sec) sec.style.display = 'block';
+}
+
+
+
+</script>
+</body>
+</html>
