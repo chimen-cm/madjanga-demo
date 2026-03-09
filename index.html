@@ -739,6 +739,40 @@ td.computed-zero { color: var(--muted) !important; }
   background: var(--surface2) !important;
 }
 
+
+/* ═══ PAGE DQE — pleine largeur ═══ */
+#page-dqe {
+  display: none;
+  flex-direction: column !important;
+  width: 100% !important;
+  overflow: hidden;
+}
+#page-dqe.active {
+  display: flex !important;
+}
+#page-dqe .fp {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 18px;
+}
+#page-dqe .card {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+#page-dqe .card > div {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
 </style>
 </head>
 <body>
@@ -760,8 +794,8 @@ td.computed-zero { color: var(--muted) !important; }
 
 <nav class="sidebar">
   <div class="nav-section">Décompte actif</div>
-  <div class="nav-item active" data-page="recap" onclick="switchPage('recap',this)"><span class="nav-icon">⊞</span>Vue Directeur</div>
-  <div class="nav-item" data-page="dqe" onclick="switchPage('dqe',this)"><span class="nav-icon">📊</span>Situation travaux</div>
+  <div class="nav-item" data-page="recap" onclick="switchPage('recap',this)"><span class="nav-icon">⊞</span>Vue Directeur</div>
+  <div class="nav-item active" data-page="dqe" onclick="switchPage('dqe',this)"><span class="nav-icon">📊</span>Situation travaux</div>
   <div class="nav-section">Paiements</div>
   <div class="nav-item" data-page="euro" onclick="switchPage('euro',this)"><span class="nav-icon">€</span>Part Euro</div>
   <div class="nav-item" data-page="cfa" onclick="switchPage('cfa',this)"><span class="nav-icon">₣</span>Part F CFA</div>
@@ -815,8 +849,8 @@ td.computed-zero { color: var(--muted) !important; }
 <div class="content-zone" style="flex:1;min-height:0;">
 
   <div class="tab-bar">
-    <div class="tab active" data-page="recap" onclick="switchPage('recap',this)">Récapitulatif Direction</div>
-    <div class="tab" data-page="dqe" onclick="switchPage('dqe',this)">DQE — Situation travaux</div>
+    <div class="tab" data-page="recap" onclick="switchPage('recap',this)">Récapitulatif Direction</div>
+    <div class="tab active" data-page="dqe" onclick="switchPage('dqe',this)">DQE — Situation travaux</div>
     <div class="tab" data-page="euro" onclick="switchPage('euro',this)">Part Euro <span class="tab-badge">€</span></div>
     <div class="tab" data-page="cfa" onclick="switchPage('cfa',this)">Part F CFA <span class="tab-badge">₣</span></div>
     <div class="tab" data-page="tva" onclick="switchPage('tva',this)">Part TVA <span class="tab-badge">19,25%</span></div>
@@ -832,7 +866,7 @@ td.computed-zero { color: var(--muted) !important; }
 
 
     <!-- ══ PAGE : RÉCAPITULATIF ══ -->
-    <div class="page active" id="page-recap">
+    <div class="page" id="page-recap">
       <div class="left-panel">
 
       <!-- ALERTES DIRECTEUR -->
@@ -1144,7 +1178,7 @@ td.computed-zero { color: var(--muted) !important; }
     </div>
 
     <!-- ══ PAGE : DQE ══ -->
-    <div class="page" id="page-dqe" style="overflow:hidden;">
+    <div class="page active" id="page-dqe" style="overflow:hidden;">
       <div class="fp" style="padding:18px 22px;overflow:hidden;height:100%;display:flex;flex-direction:column;gap:14px;">
         <div class="alert-banner warn">
           <div class="ab-icon">⚠</div>
@@ -1159,7 +1193,7 @@ td.computed-zero { color: var(--muted) !important; }
         </div>
 
         <div class="card">
-          <div style="overflow:auto;flex:1;min-height:0;border-radius:8px;">
+          <div style="border-radius:8px;">
 <table class="sit-table">
             <thead>
               <tr>
@@ -6499,6 +6533,9 @@ function recalcAll() {
 // ── Initialisation au chargement ───────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
   recalcAll();
+  // Masquer right-panel car page DQE est active par défaut
+  var rp = document.querySelector('.right-panel');
+  if (rp) rp.classList.add('hidden');
 });
 </script>
 </body>
