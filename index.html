@@ -303,7 +303,7 @@ body {
 }
 
 /* SITUATION DE TRAVAUX TABLE */
-.sit-table { width: 100%; border-collapse: collapse; }
+.sit-table { width: max-content; min-width: 100%; border-collapse: collapse; table-layout: auto; }
 .sit-table th {
   font-size: 9px; font-family: var(--font-mono);
   text-transform: uppercase; letter-spacing: 0.5px;
@@ -311,6 +311,7 @@ body {
   text-align: right; background: var(--surface2);
   border-bottom: 1px solid var(--border);
   white-space: nowrap;
+  position: sticky; top: 0; z-index: 10;
 }
 .sit-table th:first-child, .sit-table th:nth-child(2) { text-align: left; }
 .sit-table td {
@@ -707,6 +708,35 @@ td.computed-zero { color: var(--muted) !important; }
 .rdd{font-family:var(--font-mono);font-size:9px;color:var(--muted);font-weight:400;margin-left:6px;}
 .rdb{font-size:11px;color:var(--ink2);line-height:1.5;}
 
+
+/* Colonnes fixes lors du scroll horizontal */
+.sit-table td:first-child,
+.sit-table th:first-child {
+  position: sticky; left: 0; z-index: 5;
+  background: var(--surface2);
+  box-shadow: 2px 0 4px rgba(0,0,0,.05);
+  min-width: 52px;
+}
+.sit-table td:nth-child(2),
+.sit-table th:nth-child(2) {
+  position: sticky; left: 52px; z-index: 5;
+  background: var(--surface2);
+  box-shadow: 2px 0 4px rgba(0,0,0,.04);
+  min-width: 220px;
+}
+.sit-table tbody tr:hover td:first-child,
+.sit-table tbody tr:hover td:nth-child(2) {
+  background: rgba(26,74,140,0.05) !important;
+}
+.sit-table tbody tr.row-selected td:first-child,
+.sit-table tbody tr.row-selected td:nth-child(2) {
+  background: rgba(26,74,140,0.10) !important;
+}
+.sit-table .family-row td:first-child,
+.sit-table .family-row td:nth-child(2) {
+  background: var(--surface2) !important;
+}
+
 </style>
 </head>
 <body>
@@ -826,7 +856,8 @@ td.computed-zero { color: var(--muted) !important; }
         </div>
 
         <div class="card">
-          <table class="sit-table">
+          <div style="overflow:auto;max-height:calc(100vh - 280px);border-radius:8px;">
+<table class="sit-table">
             <thead>
               <tr>
                 <th rowspan="2" style="width:28px">N°<br>prix</th>
@@ -4878,6 +4909,7 @@ td.computed-zero { color: var(--muted) !important; }
               </tr>
             </tbody>
           </table>
+</div><!-- /scroll -->
         </div>
       </div>
 
