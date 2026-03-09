@@ -264,7 +264,7 @@ body {
 }
 
 /* ── LEFT PANEL ── */
-.left-panel { padding: 18px 22px; overflow-y: auto; height: 100%; display: flex; flex-direction: column; gap: 18px; border-right: 1px solid var(--border); }
+
 
 /* SECTION HEADERS */
 .section-head {
@@ -353,7 +353,9 @@ body {
 .pct-val { font-size: 10px; font-family: var(--font-mono); color: var(--muted); }
 
 /* ── RIGHT PANEL ── */
-.right-panel { padding: 18px 16px; overflow-y: auto; height: 100%; display: flex; flex-direction: column; gap: 14px; background: var(--surface); }
+.right-panel { padding: 18px 16px; overflow-y: auto; height: 100%; display: flex; flex-direction: column; gap: 14px; background: var(--surface); transition: width .2s; }
+.right-panel.hidden { display: none !important; }
+.left-panel { padding: 18px 22px; overflow-y: auto; height: 100%; display: flex; flex-direction: column; gap: 18px; border-right: 1px solid var(--border); flex: 1; min-width: 0; }
 
 /* DECISION BOX */
 .decision-card {
@@ -5977,6 +5979,20 @@ function switchPage(id, clickedEl) {
   document.querySelectorAll('[data-page="'+id+'"]').forEach(function(el){
     el.classList.add('active');
   });
+  // Masquer right-panel sur DQE pour pleine largeur du tableau
+  var rp = document.querySelector('.right-panel');
+  if (rp) {
+    if (id === 'dqe') {
+      rp.classList.add('hidden');
+    } else {
+      rp.classList.remove('hidden');
+    }
+  }
+  // Masquer border-right du left-panel sur DQE
+  var lp = document.querySelector('.left-panel');
+  if (lp) {
+    lp.style.borderRight = (id === 'dqe') ? 'none' : '';
+  }
 }
 
 
